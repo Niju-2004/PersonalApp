@@ -1,0 +1,6 @@
+@PersonalApp.ServiceLayer_HostAddress = http://localhost:5129
+
+GET {{PersonalApp.ServiceLayer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

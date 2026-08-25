@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="PersonalApp.DataAccessLayer/PersonalApp.DataAccessLayer.csproj" />
+  <Project Path="PersonalApp.ServiceLayer/PersonalApp.ServiceLayer.csproj" />
+</Solution>
