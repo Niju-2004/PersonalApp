@@ -4,12 +4,13 @@
     <p>Please enter your details to sign in.</p>
   </header>
 
-  <form class="login-form" (ngSubmit)="onSubmittt()">
+  <form class="login-form" (ngSubmit)="onSubmit()">
     <div class="input-group">
       <label for="email">Email</label>
       <input type="email"
              id="email"
              name="email"
+             [(ngModel)]="email"
              placeholder="name@example.com"
              required
              autocomplete="email">
@@ -20,6 +21,7 @@
       <input type="password"
              id="password"
              name="password"
+             [(ngModel)]="password"
              placeholder="••••••••"
              required
              autocomplete="current-password">

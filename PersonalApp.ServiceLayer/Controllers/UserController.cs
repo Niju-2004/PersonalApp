@@ -19,5 +19,14 @@ namespace PersonalApp.ServiceLayer.Controllers
             var users = _repository.GetAllUsers();
             return Ok(users);
         }
+
+        [HttpGet("Userverify")]
+
+        public IActionResult userVerifyCT(string Email, string Password)
+        {
+            var res = _repository.userVerify(Email, Password);
+
+            return Ok(res);
+        }
     }
 }
