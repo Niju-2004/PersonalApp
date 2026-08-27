@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PersonalApp.DataAccessLayer;
+using PersonalApp.DataAccessLayer.Entities;
 
 namespace PersonalApp.ServiceLayer.Controllers
 {
@@ -27,6 +28,15 @@ namespace PersonalApp.ServiceLayer.Controllers
             var res = _repository.userVerify(Email, Password);
 
             return Ok(res);
+        }
+
+        [HttpGet("UserInformation")]
+
+        public User userInformationCT(string Email, string Password)
+        { 
+            var res = _repository.userInformation(Email, Password);
+            return res;
+            
         }
     }
 }

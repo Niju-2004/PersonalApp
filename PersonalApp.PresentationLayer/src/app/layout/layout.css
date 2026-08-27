@@ -1,0 +1,87 @@
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: white;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  padding: 25px 18px;
+}
+
+
+/* MAIN CONTENT */
+
+.main-content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  padding: 40px;
+}
+
+
+/* LOGO */
+
+.logo {
+  padding: 0 15px 30px;
+}
+
+  .logo h2 {
+    color: #2563eb;
+    margin: 0;
+  }
+
+
+/* MENU */
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #374151;
+  cursor: pointer;
+}
+
+  .menu-item:hover {
+    background: #f1f5ff;
+    color: #2563eb;
+  }
+
+  .menu-item.active {
+    background: #2563eb;
+    color: white;
+  }
+
+
+/* BOTTOM */
+
+.sidebar-bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.logout {
+  color: red;
+}

@@ -1,1 +1,133 @@
-<p>dashboard works!</p>
+<div class="dashboard">
+
+  <!-- Welcome -->
+  <section class="welcome-section">
+    <h1>Welcome back, {{ name }} 👋</h1>
+    <p>Here's what's happening with your job search.</p>
+  </section>
+
+
+  <!-- Statistics -->
+  <section class="stats-container">
+
+    <!-- Total Jobs -->
+    <div class="stat-card">
+      <div class="stat-icon jobs-icon">
+        💼
+      </div>
+
+      <div class="stat-info">
+        <p>Total Jobs</p>
+        <h2>{{ totalJobs }}</h2>
+      </div>
+    </div>
+
+
+    <!-- Applications -->
+    <div class="stat-card">
+      <div class="stat-icon applications-icon">
+        📄
+      </div>
+
+      <div class="stat-info">
+        <p>Applications</p>
+        <h2>{{ applications }}</h2>
+      </div>
+    </div>
+
+
+    <!-- Interviews -->
+    <div class="stat-card">
+      <div class="stat-icon interviews-icon">
+        🎤
+      </div>
+
+      <div class="stat-info">
+        <p>Interviews</p>
+        <h2>{{ interviews }}</h2>
+      </div>
+    </div>
+
+
+    <!-- Pending Tasks -->
+    <div class="stat-card">
+      <div class="stat-icon tasks-icon">
+        ✅
+      </div>
+
+      <div class="stat-info">
+        <p>Pending Tasks</p>
+        <h2>{{ pendingTasks }}</h2>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- Quick Actions -->
+  <section class="quick-actions">
+
+    <div class="section-heading">
+      <h2>Quick Actions</h2>
+      <p>Quickly manage your job search</p>
+    </div>
+
+
+    <div class="actions-container">
+
+      <!-- Add Job -->
+      <div class="action-card" routerLink="/jobs">
+        <div class="action-icon">
+          💼
+        </div>
+
+        <div>
+          <h3>Add Job</h3>
+          <p>Add a new job opportunity</p>
+        </div>
+      </div>
+
+
+      <!-- Add Application -->
+      <div class="action-card" routerLink="/applications">
+        <div class="action-icon">
+          📄
+        </div>
+
+        <div>
+          <h3>Add Application</h3>
+          <p>Track a new application</p>
+        </div>
+      </div>
+
+
+      <!-- Add Interview -->
+      <div class="action-card" routerLink="/interviews">
+        <div class="action-icon">
+          🎤
+        </div>
+
+        <div>
+          <h3>Add Interview</h3>
+          <p>Schedule an interview</p>
+        </div>
+      </div>
+
+
+      <!-- Add Task -->
+      <div class="action-card" routerLink="/tasks">
+        <div class="action-icon">
+          ✅
+        </div>
+
+        <div>
+          <h3>Add Task</h3>
+          <p>Create a new task</p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

@@ -1,0 +1,76 @@
+<p>layout works!</p>
+<div class="app-layout">
+
+  <!-- STATIC SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      <h2>PersonalApp</h2>
+    </div>
+
+    <nav class="menu">
+
+      <a routerLink="/dashboard"
+         routerLinkActive="active"
+         class="menu-item">
+        🏠
+        <span>Dashboard</span>
+      </a>
+
+      <a routerLink="/jobs"
+         routerLinkActive="active"
+         class="menu-item">
+        💼
+        <span>Jobs</span>
+      </a>
+
+      <a routerLink="/applications"
+         routerLinkActive="active"
+         class="menu-item">
+        📄
+        <span>Applications</span>
+      </a>
+
+      <a routerLink="/interviews"
+         routerLinkActive="active"
+         class="menu-item">
+        🎤
+        <span>Interviews</span>
+      </a>
+
+      <a routerLink="/tasks"
+         routerLinkActive="active"
+         class="menu-item">
+        ✅
+        <span>Tasks</span>
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <a routerLink="/profile"
+         routerLinkActive="active"
+         class="menu-item">
+        👤
+        <span>Profile</span>
+      </a>
+
+      <a class="menu-item logout" (click)="logout()">
+        🚪
+        <span>Logout</span>
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <!-- ONLY THIS PART CHANGES -->
+  <main class="main-content">
+
+    <router-outlet></router-outlet>
+
+  </main>
+
+</div>

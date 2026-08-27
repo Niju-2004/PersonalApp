@@ -5,6 +5,7 @@ import { email } from '@angular/forms/signals';
 // import { Router } from 'express';
 import { Router } from '@angular/router'
 import { FormsModule } from '@angular/forms'
+import { IUser } from '../interfaces/IUser';
 
 @Component({
   imports: [FormsModule],
@@ -26,16 +27,23 @@ export class Loginpage implements OnInit {
 
   onSubmit() {
     console.log("email", this.email);
-    console.log("password", this.password); 
+    console.log("password", this.password);
     this.userService.verifyUser(this.email, this.password).subscribe((r) => {
       if (r == 1) {
         console.log("Valid user");
-        this.route.navigate(['/dashboard'])
+        this.userService.userInformation(this.email, this.password).subscribe((r: IUser) => {
+          console.log("User details", r);
+          localStorage.setItem("user", JSON.stringify(r));
+          this.route.navigate(['/layout/dashboard'])
+        })
       }
       else {
         console.log("Invalid user");
+       
       }
     })
+
+    
   }
 
 }

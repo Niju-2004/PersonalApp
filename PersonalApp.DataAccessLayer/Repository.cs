@@ -39,5 +39,21 @@ namespace PersonalApp.DataAccessLayer
             }
 
         }
+
+        public User userInformation(string Email, string Password) 
+        {
+            var user = _context.Users.FirstOrDefault(
+              u => u.Email == Email &&
+              u.Password == Password);
+
+            if (user != null)
+            {
+                return user;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

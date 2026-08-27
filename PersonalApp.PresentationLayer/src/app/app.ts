@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Loginpage } from './loginpage/loginpage';
+import { Dashboard } from './dashboard/dashboard';
 
 @Component({
   imports: [RouterOutlet],
