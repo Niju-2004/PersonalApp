@@ -27,6 +27,7 @@ namespace PersonalApp.ServiceLayer
             builder.Services.AddDbContext<PersonalApp.DataAccessLayer.Data.PersonalDashboardDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped<PersonalApp.DataAccessLayer.Repository>();
+            builder.Services.AddScoped<PersonalApp.DataAccessLayer.JobRepository>();
             //builder.Services.AddScoped<PersonalApp.ServiceLayer.Services.UserService>();
             var app = builder.Build();
 

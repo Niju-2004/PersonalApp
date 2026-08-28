@@ -9,9 +9,11 @@ namespace PersonalApp.ServiceLayer.Controllers
     public class jobsController : ControllerBase
     {
         private readonly Repository _repository;
-        public jobsController(Repository repository)
+        private readonly JobRepository _jobRepository;
+        public jobsController(Repository repository, JobRepository jobRepository)
         {
             _repository = repository;
+            _jobRepository = jobRepository;
         }
 
         [HttpGet("allJobs")]
@@ -19,6 +21,13 @@ namespace PersonalApp.ServiceLayer.Controllers
         {
             var res = _repository.AllJobs(UserId);
             return res;
+        }
+
+        [HttpPost("addJob")]
+        public IActionResult addJobsCT(JobApplication job)
+        {
+            var res = _jobRepository.addJobs(job);
+            return Ok(res);
         }
     }
 }

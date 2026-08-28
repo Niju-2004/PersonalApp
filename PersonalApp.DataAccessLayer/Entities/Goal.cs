@@ -31,5 +31,5 @@ public partial class Goal
 
     [ForeignKey("UserId")]
     [InverseProperty("Goals")]
-    public virtual User User { get; set; } = null!;
+    public virtual User? User { get; set; } = null!;
 }

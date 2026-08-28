@@ -31,5 +31,5 @@ public partial class LearningItem
 
     [ForeignKey("UserId")]
     [InverseProperty("LearningItems")]
-    public virtual User User { get; set; } = null!;
+    public virtual User? User { get; set; } = null!;
 }

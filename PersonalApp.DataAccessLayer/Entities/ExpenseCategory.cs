@@ -21,5 +21,5 @@ public partial class ExpenseCategory
 
     [ForeignKey("UserId")]
     [InverseProperty("ExpenseCategories")]
-    public virtual User User { get; set; } = null!;
+    public virtual User? User { get; set; } = null!;
 }

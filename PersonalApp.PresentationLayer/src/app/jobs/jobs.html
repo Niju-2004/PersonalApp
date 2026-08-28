@@ -7,7 +7,8 @@
       <p>Manage and track your job opportunities</p>
     </div>
 
-    <button class="add-job-btn" routerLink="/layout/jobs/add">
+    <!-- Add Job Button -->
+    <button class="add-job-btn" (click)="openDrawer()">
       + Add Job
     </button>
   </div>
@@ -20,49 +21,26 @@
 
   <!-- Jobs List -->
   <div class="jobs-container">
-
     <div class="job-card" *ngFor="let job of jobs">
-
       <div class="job-main">
-
-        <div class="company-icon">
-          💼
-        </div>
-
+        <div class="company-icon">💼</div>
         <div class="job-info">
           <h2>{{ job.jobTitle }}</h2>
           <h3>{{ job.companyName }}</h3>
-
           <div class="job-details">
-
-            <span *ngIf="job.location">
-              📍 {{ job.location }}
-            </span>
-
-            <span *ngIf="job.salary">
-              💰 {{ job.salary }}
-            </span>
-
-            <span *ngIf="job.status">
-              📌 {{ job.status }}
-            </span>
-
+            <span *ngIf="job.salary">💰 ${{ job.salary }}</span>
+            <span *ngIf="job.status">📌 {{ job.status }}</span>
+            <span *ngIf="job.appliedDate">📅 {{ job.appliedDate }}</span>
           </div>
         </div>
-
       </div>
 
+      <!-- 🌟 Clicking this opens the View Job Modal -->
       <div class="job-actions">
-
-        <a *ngIf="job.jobUrl"
-           [href]="job.jobUrl"
-           target="_blank"
-           class="view-btn">
+        <button type="button" class="view-btn" (click)="openViewJob(job)">
           View Job
-        </a>
-
+        </button>
       </div>
-
     </div>
 
     <!-- No Jobs -->
@@ -70,12 +48,153 @@
       <div class="empty-icon">💼</div>
       <h2>No jobs found</h2>
       <p>Add your first job opportunity to start tracking.</p>
-
-      <button routerLink="/layout/jobs/add">
-        + Add Job
-      </button>
+      <button (click)="openDrawer()">+ Add Job</button>
     </div>
-
   </div>
 
+</div>
+
+<!-- ========================================= -->
+<!-- 👁️ VIEW JOB DETAILS MODAL DIALOG -->
+<!-- ========================================= -->
+<div class="modal-backdrop" *ngIf="isViewModalOpen" (click)="closeViewJob()"></div>
+
+<div class="modal-dialog" *ngIf="isViewModalOpen && selectedJob">
+
+  <!-- Header with Back Button -->
+  <div class="modal-header">
+    <button class="back-link-btn" (click)="closeViewJob()">
+      ← Back to Jobs
+    </button>
+    <button class="modal-close-icon" (click)="closeViewJob()">✕</button>
+  </div>
+
+  <!-- Body Content -->
+  <div class="modal-body">
+    <div class="modal-company-badge">
+      <div class="company-icon-large">💼</div>
+      <div>
+        <h2>{{ selectedJob.jobTitle }}</h2>
+        <h3>{{ selectedJob.companyName }}</h3>
+      </div>
+    </div>
+
+    <div class="details-grid">
+      <div class="detail-card">
+        <span class="detail-label">Status</span>
+        <span class="status-pill" [ngClass]="selectedJob.status?.toLowerCase()">
+          {{ selectedJob.status }}
+        </span>
+      </div>
+
+      <div class="detail-card" *ngIf="selectedJob.salary">
+        <span class="detail-label">Salary</span>
+        <strong class="salary-highlight">${{ selectedJob.salary }}</strong>
+      </div>
+
+      <div class="detail-card" *ngIf="selectedJob.appliedDate">
+        <span class="detail-label">Applied Date</span>
+        <span>📅 {{ selectedJob.appliedDate }}</span>
+      </div>
+
+      <div class="detail-card" *ngIf="selectedJob.interviewDate">
+        <span class="detail-label">Interview Date</span>
+        <span>🎤 {{ selectedJob.interviewDate }}</span>
+      </div>
+    </div>
+
+    <!-- Job URL Link -->
+    <div class="info-section" *ngIf="selectedJob.jobUrl">
+      <span class="detail-label">Job Posting URL</span>
+      <a [href]="selectedJob.jobUrl" target="_blank" class="job-url-link">
+        🔗 {{ selectedJob.jobUrl }} ↗
+      </a>
+    </div>
+
+    <!-- Notes -->
+    <div class="info-section" *ngIf="selectedJob.notes">
+      <span class="detail-label">Notes & Details</span>
+      <div class="notes-container">
+        {{ selectedJob.notes }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Footer -->
+  <div class="modal-footer">
+    <button type="button" class="btn-modal-back" (click)="closeViewJob()">
+      ← Back
+    </button>
+    <a *ngIf="selectedJob.jobUrl" [href]="selectedJob.jobUrl" target="_blank" class="btn-modal-visit">
+      Visit Application Site ↗
+    </a>
+  </div>
+
+</div>
+
+
+<!-- ========================================= -->
+<!-- 🌟 SLIDE-OVER SIDE DRAWER (Add Job) -->
+<!-- ========================================= -->
+<div class="drawer-backdrop" *ngIf="isDrawerOpen" (click)="closeDrawer()"></div>
+
+<div class="drawer-panel" [class.open]="isDrawerOpen">
+  <div class="drawer-header">
+    <h2>Add New Job</h2>
+    <button class="close-btn" (click)="closeDrawer()">✕</button>
+  </div>
+
+  <form class="drawer-body" (ngSubmit)="submitJob()">
+    <div class="form-group">
+      <label>Company Name *</label>
+      <input type="text" [(ngModel)]="newJob.companyName" name="companyName" placeholder="e.g. Google" required />
+    </div>
+
+    <div class="form-group">
+      <label>Job Title *</label>
+      <input type="text" [(ngModel)]="newJob.jobTitle" name="jobTitle" placeholder="e.g. Software Engineer" required />
+    </div>
+
+    <div class="form-group">
+      <label>Job URL</label>
+      <input type="url" [(ngModel)]="newJob.jobUrl" name="jobUrl" placeholder="https://..." />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Status</label>
+        <select [(ngModel)]="newJob.status" name="status">
+          <option value="Applied">Applied</option>
+          <option value="Interviewing">Interviewing</option>
+          <option value="Offer">Offer</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Applied Date</label>
+        <input type="date" [(ngModel)]="newJob.appliedDate" name="appliedDate" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Salary ($)</label>
+      <input type="number" [(ngModel)]="newJob.salary" name="salary" placeholder="120000" />
+    </div>
+
+    <div class="form-group" *ngIf="newJob.status === 'Interviewing'">
+      <label>Interview Date & Time</label>
+      <input type="datetime-local" [(ngModel)]="newJob.interviewDate" name="interviewDate" />
+    </div>
+
+    <div class="form-group">
+      <label>Notes</label>
+      <textarea [(ngModel)]="newJob.notes" name="notes" rows="3" placeholder="Notes, recruiter contacts, or referral details..."></textarea>
+    </div>
+
+    <div class="drawer-footer">
+      <button type="button" class="btn-cancel" (click)="closeDrawer()">Cancel</button>
+      <button type="submit" class="btn-save">Save Job</button>
+    </div>
+  </form>
 </div>

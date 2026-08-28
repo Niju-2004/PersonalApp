@@ -11,7 +11,6 @@ public partial class JobApplication
 {
     [Key]
     public int ApplicationId { get; set; }
-
     public int UserId { get; set; }
 
     [StringLength(150)]
@@ -40,5 +39,5 @@ public partial class JobApplication
     [ForeignKey("UserId")]
     [InverseProperty("JobApplications")]
     [JsonIgnore]
-    public virtual User User { get; set; } = null!;
+    public virtual User? User { get; set; } = null!;
 }

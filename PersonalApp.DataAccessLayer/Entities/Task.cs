@@ -37,5 +37,5 @@ public partial class Task
     [ForeignKey("UserId")]
     [InverseProperty("Tasks")]
     [JsonIgnore]
-    public virtual User User { get; set; } = null!;
+    public virtual User? User { get; set; } = null!;
 }
