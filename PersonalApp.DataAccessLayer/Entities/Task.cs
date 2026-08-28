@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace PersonalApp.DataAccessLayer.Entities;
@@ -35,5 +36,6 @@ public partial class Task
 
     [ForeignKey("UserId")]
     [InverseProperty("Tasks")]
+    [JsonIgnore]
     public virtual User User { get; set; } = null!;
 }

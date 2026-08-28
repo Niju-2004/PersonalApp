@@ -1,0 +1,81 @@
+<div class="jobs-page">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h1>My Jobs</h1>
+      <p>Manage and track your job opportunities</p>
+    </div>
+
+    <button class="add-job-btn" routerLink="/layout/jobs/add">
+      + Add Job
+    </button>
+  </div>
+
+  <!-- Job Count -->
+  <div class="job-summary">
+    <span>Total Jobs</span>
+    <strong>{{ jobs.length }}</strong>
+  </div>
+
+  <!-- Jobs List -->
+  <div class="jobs-container">
+
+    <div class="job-card" *ngFor="let job of jobs">
+
+      <div class="job-main">
+
+        <div class="company-icon">
+          💼
+        </div>
+
+        <div class="job-info">
+          <h2>{{ job.jobTitle }}</h2>
+          <h3>{{ job.companyName }}</h3>
+
+          <div class="job-details">
+
+            <span *ngIf="job.location">
+              📍 {{ job.location }}
+            </span>
+
+            <span *ngIf="job.salary">
+              💰 {{ job.salary }}
+            </span>
+
+            <span *ngIf="job.status">
+              📌 {{ job.status }}
+            </span>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="job-actions">
+
+        <a *ngIf="job.jobUrl"
+           [href]="job.jobUrl"
+           target="_blank"
+           class="view-btn">
+          View Job
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- No Jobs -->
+    <div class="no-jobs" *ngIf="jobs.length === 0">
+      <div class="empty-icon">💼</div>
+      <h2>No jobs found</h2>
+      <p>Add your first job opportunity to start tracking.</p>
+
+      <button routerLink="/layout/jobs/add">
+        + Add Job
+      </button>
+    </div>
+
+  </div>
+
+</div>

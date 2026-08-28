@@ -3,12 +3,12 @@ import { inherits } from 'node:util';
 import { UserService } from '../services/user-service';
 import { email } from '@angular/forms/signals';
 // import { Router } from 'express';
-import { Router } from '@angular/router'
+import { Router, RouterLink, RouterOutlet } from '@angular/router'
 import { FormsModule } from '@angular/forms'
 import { IUser } from '../interfaces/IUser';
 
 @Component({
-  imports: [FormsModule],
+  imports: [FormsModule, RouterOutlet, RouterLink],
   selector: 'app-loginpage',
   styleUrl: './loginpage.css',
   templateUrl: './loginpage.html',

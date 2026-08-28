@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DashboardService } from '../services/dashboard-service';
 import { IUser } from '../interfaces/IUser';
+import { IJobs } from '../interfaces/IJobs';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-dashboard',
   styleUrl: './dashboard.css',
   templateUrl: './dashboard.html',
@@ -26,7 +28,7 @@ export class Dashboard implements OnInit {
 
 
 
-  constructor(private ds: DashboardService) { }
+  constructor(private ds: DashboardService, private cdr: ChangeDetectorRef) { }
 
 
   ngOnInit(): void {
@@ -55,6 +57,23 @@ export class Dashboard implements OnInit {
       console.log('No user found in localStorage');
 
     }
+    //get all jobs
+    this.ds.getAllJobs(this.userId).subscribe((jobs) => {
+      console.log("All jobs", jobs);
+      this.totalJobs = jobs.length;
+      console.log("Total jobs", this.totalJobs);
+      this.cdr.detectChanges();
+    })
+
+    //get all tasks
+    this.ds.getAllTasks(this.userId).subscribe((tasks) => {
+      console.log("All tasks", tasks);
+      this.pendingTasks = tasks.filter(
+        task => task.status === 'Pending').length;
+      console.log("Coutn of pending tasks", this.pendingTasks);
+      this.cdr.detectChanges();
+    })
+
 
 
   }

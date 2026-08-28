@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using PersonalApp.DataAccessLayer.Entities;
 using PersonalApp.DataAccessLayer.Data;
+using Task = PersonalApp.DataAccessLayer.Entities.Task;
 
 namespace PersonalApp.DataAccessLayer
 {
@@ -54,6 +55,20 @@ namespace PersonalApp.DataAccessLayer
             {
                 return null;
             }
+        }
+
+        public List<JobApplication> AllJobs(int userId)
+        {
+            var alljobs = _context.JobApplications.Where(
+                r => r.UserId == userId).ToList();
+            return alljobs;
+        }
+
+        public List<Task> allTasks(int userId)
+        {
+            var allTasks = _context.Tasks.Where(
+                r => r.UserId == userId).ToList();
+            return allTasks;
         }
     }
 }
