@@ -1,11 +1,14 @@
-<p>layout works!</p>
 <div class="app-layout">
 
   <!-- STATIC SIDEBAR -->
   <aside class="sidebar">
 
     <div class="logo">
-      <h2>PersonalApp</h2>
+      <div class="logo-icon-badge">✨</div>
+      <div class="logo-text">
+        <h2>Personal<span>App</span></h2>
+        <span class="logo-sub">Niju's Dashboard</span>
+      </div>
     </div>
 
     <nav class="menu">
@@ -13,35 +16,35 @@
       <a routerLink="/layout/dashboard"
          routerLinkActive="active"
          class="menu-item">
-        🏠
+        <span class="menu-icon">🏠</span>
         <span>Dashboard</span>
       </a>
 
       <a routerLink="/layout/jobs"
          routerLinkActive="active"
          class="menu-item">
-        💼
+        <span class="menu-icon">💼</span>
         <span>Jobs</span>
       </a>
 
       <a routerLink="/applications"
          routerLinkActive="active"
          class="menu-item">
-        📄
+        <span class="menu-icon">📄</span>
         <span>Applications</span>
       </a>
 
       <a routerLink="/interviews"
          routerLinkActive="active"
          class="menu-item">
-        🎤
+        <span class="menu-icon">🎤</span>
         <span>Interviews</span>
       </a>
 
       <a routerLink="/tasks"
          routerLinkActive="active"
          class="menu-item">
-        ✅
+        <span class="menu-icon">✅</span>
         <span>Tasks</span>
       </a>
 
@@ -52,12 +55,12 @@
       <a routerLink="/profile"
          routerLinkActive="active"
          class="menu-item">
-        👤
+        <span class="menu-icon">👤</span>
         <span>Profile</span>
       </a>
 
       <a class="menu-item logout" (click)="logout()">
-        🚪
+        <span class="menu-icon">🚪</span>
         <span>Logout</span>
       </a>
 
@@ -74,3 +77,4 @@
   </main>
 
 </div>
+

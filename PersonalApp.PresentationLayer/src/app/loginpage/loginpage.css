@@ -3,39 +3,121 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #f3f4f6;
-  padding: 1rem;
+  background: radial-gradient(circle at top right, rgba(225, 29, 72, 0.08), transparent 40%),
+              radial-gradient(circle at bottom left, rgba(124, 58, 237, 0.08), transparent 40%),
+              #f8f8fc;
+  padding: 1.5rem;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
 }
 
-.login-container {
-  background: #ffffff;
+.login-wrapper {
+  position: relative;
   width: 100%;
-  max-width: 400px;
-  padding: 2.5rem 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  max-width: 440px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Ambient Glowing Background Orbs */
+.ambient-glow {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-1 {
+  top: -40px;
+  right: -40px;
+  background: radial-gradient(circle, #e11d48 0%, #f43f5e 70%);
+}
+
+.glow-2 {
+  bottom: -40px;
+  left: -40px;
+  background: radial-gradient(circle, #7c3aed 0%, #a855f7 70%);
+}
+
+/* Main Login Card */
+.login-container {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  width: 100%;
+  padding: 2.75rem 2.25rem;
+  border-radius: 20px;
+  border: 1px solid rgba(225, 29, 72, 0.12);
+  box-shadow: 0 20px 40px -12px rgba(124, 58, 237, 0.12),
+              0 1px 3px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.login-container:hover {
+  box-shadow: 0 25px 50px -12px rgba(225, 29, 72, 0.18),
+              0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Header */
 .login-header {
-  margin-bottom: 1.75rem;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-  .login-header h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #111827;
-    margin: 0 0 0.25rem 0;
-  }
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+  border: 1px solid rgba(225, 29, 72, 0.15);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #be123c;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 0.85rem;
+}
 
-  .login-header p {
-    font-size: 0.875rem;
-    color: #6b7280;
-    margin: 0;
-  }
+.badge-sparkle {
+  font-size: 0.9rem;
+}
 
+/* Catchy Brand Title: "Niju's Dashboard" in Red & Violet */
+.dashboard-brand-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #e11d48 0%, #9333ea 50%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  filter: drop-shadow(0 2px 8px rgba(225, 29, 72, 0.2));
+}
+
+.welcome-heading {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1e1b4b;
+  margin: 0.25rem 0 0.2rem 0;
+}
+
+.welcome-subtext {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Form Styles */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -45,90 +127,150 @@
 .input-group {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.4rem;
 }
 
-  .input-group label {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #374151;
-  }
+.input-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+}
 
-  .input-group input {
-    padding: 0.65rem 0.85rem;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    box-sizing: border-box;
-    width: 100%;
-  }
+.input-field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
-    .input-group input:focus {
-      border-color: #4f46e5;
-      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
-    }
+.field-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 1rem;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.input-field-wrapper input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.6rem;
+  background: #fdfdfd;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #1e293b;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.input-field-wrapper input:focus {
+  border-color: #7c3aed;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12),
+              0 0 0 1px rgba(225, 29, 72, 0.2);
+}
 
 .form-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.85rem;
+  margin-top: -0.25rem;
 }
 
 .remember-me {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  color: #4b5563;
+  gap: 0.45rem;
+  color: #475569;
   cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.remember-me input {
+  accent-color: #7c3aed;
+  width: 16px;
+  height: 16px;
 }
 
 .forgot-password {
-  color: #4f46e5;
+  color: #e11d48;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  transition: color 0.2s;
 }
 
-  .forgot-password:hover {
-    text-decoration: underline;
-  }
+.forgot-password:hover {
+  color: #be123c;
+  text-decoration: underline;
+}
 
+/* Red & Violet Gradient Submit Button */
 .submit-btn {
-  background-color: #4f46e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #e11d48 0%, #7c3aed 100%);
   color: #ffffff;
   border: none;
-  padding: 0.75rem;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  font-weight: 600;
+  padding: 0.85rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  font-family: inherit;
   cursor: pointer;
-  transition: background-color 0.2s;
+  box-shadow: 0 6px 20px rgba(225, 29, 72, 0.3),
+              0 2px 8px rgba(124, 58, 237, 0.25);
+  transition: all 0.25s ease;
   width: 100%;
+  margin-top: 0.5rem;
 }
 
-  .submit-btn:hover {
-    background-color: #4338ca;
-  }
+.submit-btn:hover {
+  background: linear-gradient(135deg, #be123c 0%, #6d28d9 100%);
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.4),
+              0 4px 12px rgba(124, 58, 237, 0.35);
+  transform: translateY(-2px);
+}
 
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.btn-arrow {
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.submit-btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Footer */
 .login-footer {
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
   text-align: center;
   font-size: 0.875rem;
-  color: #6b7280;
+  color: #64748b;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1.25rem;
 }
 
-  .login-footer p {
-    margin: 0;
-  }
+.login-footer p {
+  margin: 0;
+}
 
-  .login-footer a {
-    color: #4f46e5;
-    text-decoration: none;
-    font-weight: 600;
-  }
+.login-footer a {
+  color: #7c3aed;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s;
+}
 
-    .login-footer a:hover {
-      text-decoration: underline;
-    }
+.login-footer a:hover {
+  color: #e11d48;
+  text-decoration: underline;
+}
+

@@ -1,217 +1,283 @@
 .dashboard {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1300px;
   margin: 0 auto;
 }
 
-
-/* =========================
+/* =========================================
    WELCOME SECTION
-   ========================= */
+   ========================================= */
 
 .welcome-section {
-  margin-bottom: 40px;
+  margin-bottom: 35px;
 }
 
-  .welcome-section h1 {
-    margin: 0 0 10px 0;
-    font-size: 36px;
-    font-weight: 700;
-    color: #111827;
-  }
+.welcome-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #7c3aed;
+  margin-bottom: 12px;
+}
 
-  .welcome-section p {
-    margin: 0;
-    font-size: 18px;
-    color: #667085;
-  }
+.welcome-section h1 {
+  margin: 0 0 8px 0;
+  font-size: 32px;
+  font-weight: 800;
+  color: #1e1b4b;
+  letter-spacing: -0.5px;
+}
+
+.name-gradient {
+  background: linear-gradient(135deg, #e11d48 0%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.welcome-section p {
+  margin: 0;
+  font-size: 16px;
+  color: #64748b;
+}
 
 
-/* =========================
-   STATISTICS CARDS
-   ========================= */
+/* =========================================
+   STATISTICS CARDS (Red & Violet Palette)
+   ========================================= */
 
 .stats-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 22px;
   margin-bottom: 45px;
 }
 
-
 .stat-card {
-  background: white;
-  border: 1px solid #e4e7ec;
-  border-radius: 14px;
-  min-height: 110px;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #edf0f7;
+  border-radius: 16px;
   padding: 24px;
   display: flex;
   align-items: center;
   gap: 18px;
-  box-shadow: 0 2px 5px rgba(16, 24, 40, 0.05);
-  transition: 0.2s;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.04);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
 }
 
-  .stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 12px rgba(16, 24, 40, 0.08);
-  }
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.1),
+              0 4px 10px rgba(225, 29, 72, 0.06);
+}
 
+.stat-card.card-violet:hover { border-color: #c4b5fd; }
+.stat-card.card-rose:hover { border-color: #fbcfe8; }
+.stat-card.card-purple:hover { border-color: #ddd6fe; }
+.stat-card.card-red:hover { border-color: #fecdd3; }
 
-/* Icons */
+/* Glowing corner effect */
+.stat-glow {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  filter: blur(25px);
+  opacity: 0.5;
+  pointer-events: none;
+}
 
+.glow-violet { background: #7c3aed; }
+.glow-rose { background: #f43f5e; }
+.glow-purple { background: #9333ea; }
+.glow-red { background: #e11d48; }
+
+/* Stat Icons */
 .stat-icon {
   width: 58px;
   height: 58px;
-  border-radius: 12px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 27px;
+  font-size: 26px;
   flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover .stat-icon {
+  transform: scale(1.08);
 }
 
 .jobs-icon {
-  background: #eff6ff;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(124, 58, 237, 0.04));
+  border: 1px solid rgba(124, 58, 237, 0.2);
 }
 
 .applications-icon {
-  background: #ecfdf3;
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.12), rgba(244, 63, 94, 0.04));
+  border: 1px solid rgba(244, 63, 94, 0.2);
 }
 
 .interviews-icon {
-  background: #fff7ed;
+  background: linear-gradient(135deg, rgba(147, 51, 234, 0.12), rgba(147, 51, 234, 0.04));
+  border: 1px solid rgba(147, 51, 234, 0.2);
 }
 
 .tasks-icon {
-  background: #fef2f2;
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.12), rgba(225, 29, 72, 0.04));
+  border: 1px solid rgba(225, 29, 72, 0.2);
 }
 
-
-/* Text */
-
+/* Stat Text */
 .stat-info p {
-  margin: 0 0 7px 0;
-  font-size: 16px;
-  color: #667085;
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
 }
 
 .stat-info h2 {
   margin: 0;
-  font-size: 30px;
-  font-weight: 700;
-  color: #111827;
+  font-size: 28px;
+  font-weight: 800;
+  color: #1e1b4b;
+  letter-spacing: -0.5px;
 }
 
 
-/* =========================
+/* =========================================
    QUICK ACTIONS
-   ========================= */
+   ========================================= */
 
 .quick-actions {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .section-heading {
   margin-bottom: 22px;
 }
 
-  .section-heading h2 {
-    margin: 0 0 7px 0;
-    font-size: 27px;
-    font-weight: 700;
-    color: #111827;
-  }
+.section-heading h2 {
+  margin: 0 0 6px 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e1b4b;
+}
 
-  .section-heading p {
-    margin: 0;
-    font-size: 16px;
-    color: #667085;
-  }
+.section-heading p {
+  margin: 0;
+  font-size: 15px;
+  color: #64748b;
+}
 
-
-/* Action cards */
-
+/* Action Grid */
 .actions-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 22px;
 }
 
-
 .action-card {
-  background: white;
-  border: 1px solid #e4e7ec;
-  border-radius: 14px;
-  min-height: 100px;
+  position: relative;
+  background: #ffffff;
+  border: 1.5px solid #edf0f7;
+  border-radius: 16px;
   padding: 22px;
   display: flex;
   align-items: center;
-  gap: 17px;
+  gap: 16px;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(16, 24, 40, 0.04);
-  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-  .action-card:hover {
-    transform: translateY(-3px);
-    border-color: #2864e6;
-    box-shadow: 0 6px 15px rgba(16, 24, 40, 0.08);
-  }
+.action-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(124, 58, 237, 0.1),
+              0 4px 10px rgba(225, 29, 72, 0.08);
+}
 
-
-/* Action icon */
+.action-card.action-red:hover { border-color: #e11d48; }
+.action-card.action-violet:hover { border-color: #7c3aed; }
+.action-card.action-rose:hover { border-color: #f43f5e; }
+.action-card.action-purple:hover { border-color: #9333ea; }
 
 .action-icon {
-  width: 55px;
-  height: 55px;
-  background: #eff6ff;
+  width: 52px;
+  height: 52px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 25px;
+  font-size: 24px;
   flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
+.action-card:hover .action-icon {
+  transform: scale(1.1);
+}
 
-/* Action text */
+.icon-red { background: linear-gradient(135deg, #ffe4e6, #fecdd3); color: #e11d48; }
+.icon-violet { background: linear-gradient(135deg, #ede9fe, #ddd6fe); color: #7c3aed; }
+.icon-rose { background: linear-gradient(135deg, #fce7f3, #fbcfe8); color: #f43f5e; }
+.icon-purple { background: linear-gradient(135deg, #f3e8ff, #e9d5ff); color: #9333ea; }
 
-.action-card h3 {
-  margin: 0 0 5px 0;
-  font-size: 18px;
+.action-text h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
   font-weight: 700;
-  color: #111827;
+  color: #1e1b4b;
 }
 
-.action-card p {
+.action-text p {
   margin: 0;
-  font-size: 14px;
-  color: #667085;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.action-arrow {
+  margin-left: auto;
+  font-size: 16px;
+  color: #94a3b8;
+  transition: all 0.2s ease;
+}
+
+.action-card:hover .action-arrow {
+  color: #7c3aed;
+  transform: translateX(4px);
 }
 
 
-/* =========================
-   RESPONSIVE
-   ========================= */
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
 
 @media (max-width: 1100px) {
-
   .stats-container,
   .actions-container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-
 @media (max-width: 650px) {
-
   .stats-container,
   .actions-container {
     grid-template-columns: 1fr;
   }
-
   .welcome-section h1 {
-    font-size: 28px;
+    font-size: 26px;
   }
 }
+

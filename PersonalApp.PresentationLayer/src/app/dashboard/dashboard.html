@@ -2,16 +2,20 @@
 
   <!-- Welcome -->
   <section class="welcome-section">
-    <h1>Welcome back, {{ name }} 👋</h1>
-    <p>Here's what's happening with your job search.</p>
+    <div class="welcome-badge">
+      <span class="sparkle-icon">✨</span>
+      <span>Dashboard Overview</span>
+    </div>
+    <h1>Welcome back, <span class="name-gradient">{{ name }}</span> 👋</h1>
+    <p>Here's what's happening with your job search & career opportunities.</p>
   </section>
 
 
-  <!-- Statistics -->
+  <!-- Statistics Cards -->
   <section class="stats-container">
 
     <!-- Total Jobs -->
-    <div class="stat-card">
+    <div class="stat-card card-violet">
       <div class="stat-icon jobs-icon">
         💼
       </div>
@@ -20,11 +24,12 @@
         <p>Total Jobs</p>
         <h2>{{ totalJobs }}</h2>
       </div>
+      <div class="stat-glow glow-violet"></div>
     </div>
 
 
     <!-- Applications -->
-    <div class="stat-card">
+    <div class="stat-card card-rose">
       <div class="stat-icon applications-icon">
         📄
       </div>
@@ -33,11 +38,12 @@
         <p>Applications</p>
         <h2>{{ applications }}</h2>
       </div>
+      <div class="stat-glow glow-rose"></div>
     </div>
 
 
     <!-- Interviews -->
-    <div class="stat-card">
+    <div class="stat-card card-purple">
       <div class="stat-icon interviews-icon">
         🎤
       </div>
@@ -46,11 +52,12 @@
         <p>Interviews</p>
         <h2>{{ interviews }}</h2>
       </div>
+      <div class="stat-glow glow-purple"></div>
     </div>
 
 
     <!-- Pending Tasks -->
-    <div class="stat-card">
+    <div class="stat-card card-red">
       <div class="stat-icon tasks-icon">
         ✅
       </div>
@@ -59,6 +66,7 @@
         <p>Pending Tasks</p>
         <h2>{{ pendingTasks }}</h2>
       </div>
+      <div class="stat-glow glow-red"></div>
     </div>
 
   </section>
@@ -69,61 +77,65 @@
 
     <div class="section-heading">
       <h2>Quick Actions</h2>
-      <p>Quickly manage your job search</p>
+      <p>Quickly manage and update your job pipeline</p>
     </div>
 
 
     <div class="actions-container">
 
       <!-- Add Job -->
-      <div class="action-card" routerLink="/layout/jobs">
-        <div class="action-icon">
+      <div class="action-card action-red" routerLink="/layout/jobs">
+        <div class="action-icon icon-red">
           💼
         </div>
 
-        <div>
+        <div class="action-text">
           <h3>Add Job</h3>
           <p>Add a new job opportunity</p>
         </div>
+        <span class="action-arrow">→</span>
       </div>
 
 
       <!-- Add Application -->
-      <div class="action-card" routerLink="/applications">
-        <div class="action-icon">
+      <div class="action-card action-violet" routerLink="/applications">
+        <div class="action-icon icon-violet">
           📄
         </div>
 
-        <div>
+        <div class="action-text">
           <h3>Add Application</h3>
           <p>Track a new application</p>
         </div>
+        <span class="action-arrow">→</span>
       </div>
 
 
       <!-- Add Interview -->
-      <div class="action-card" routerLink="/interviews">
-        <div class="action-icon">
+      <div class="action-card action-rose" routerLink="/interviews">
+        <div class="action-icon icon-rose">
           🎤
         </div>
 
-        <div>
+        <div class="action-text">
           <h3>Add Interview</h3>
           <p>Schedule an interview</p>
         </div>
+        <span class="action-arrow">→</span>
       </div>
 
 
       <!-- Add Task -->
-      <div class="action-card" routerLink="/tasks">
-        <div class="action-icon">
+      <div class="action-card action-purple" routerLink="/tasks">
+        <div class="action-icon icon-purple">
           ✅
         </div>
 
-        <div>
+        <div class="action-text">
           <h3>Add Task</h3>
           <p>Create a new task</p>
         </div>
+        <span class="action-arrow">→</span>
       </div>
 
     </div>
@@ -131,3 +143,4 @@
   </section>
 
 </div>
+

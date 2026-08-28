@@ -1,44 +1,68 @@
-<main class="login-container">
-  <header class="login-header">
-    <h2>Welcome back</h2>
-    <p>Please enter your details to sign in.</p>
-  </header>
+<div class="login-wrapper">
+  <!-- Catchy glowing ambient orbs -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
 
-  <form class="login-form" (ngSubmit)="onSubmit()">
-    <div class="input-group">
-      <label for="email">Email</label>
-      <input type="email"
-             id="email"
-             name="email"
-             [(ngModel)]="email"
-             placeholder="name@example.com"
-             required
-             autocomplete="email">
-    </div>
+  <main class="login-container">
+    <header class="login-header">
+      <div class="brand-badge">
+        <span class="badge-sparkle">✨</span>
+        <span>Personal Suite</span>
+      </div>
+      
+      <!-- Catchy "Niju's Dashboard" in Red & Violet gradient -->
+      <h1 class="dashboard-brand-title">Niju's Dashboard</h1>
+      
+      <h2 class="welcome-heading">Welcome back</h2>
+      <p class="welcome-subtext">Please enter your details to sign in</p>
+    </header>
 
-    <div class="input-group">
-      <label for="password">Password</label>
-      <input type="password"
-             id="password"
-             name="password"
-             [(ngModel)]="password"
-             placeholder="••••••••"
-             required
-             autocomplete="current-password">
-    </div>
+    <form class="login-form" (ngSubmit)="onSubmit()">
+      <div class="input-group">
+        <label for="email">Email Address</label>
+        <div class="input-field-wrapper">
+          <span class="field-icon">✉️</span>
+          <input type="email"
+                 id="email"
+                 name="email"
+                 [(ngModel)]="email"
+                 placeholder="name@example.com"
+                 required
+                 autocomplete="email">
+        </div>
+      </div>
 
-    <div class="form-actions">
-      <label class="remember-me">
-        <input type="checkbox" name="remember">
-        <span>Remember me</span>
-      </label>
-      <a href="#" class="forgot-password">Forgot password?</a>
-    </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <div class="input-field-wrapper">
+          <span class="field-icon">🔒</span>
+          <input type="password"
+                 id="password"
+                 name="password"
+                 [(ngModel)]="password"
+                 placeholder="••••••••"
+                 required
+                 autocomplete="current-password">
+        </div>
+      </div>
 
-    <button type="submit" class="submit-btn">Sign In</button>
-  </form>
+      <div class="form-actions">
+        <label class="remember-me">
+          <input type="checkbox" name="remember">
+          <span>Remember me</span>
+        </label>
+        <a href="#" class="forgot-password">Forgot password?</a>
+      </div>
 
-  <footer class="login-footer">
-    <p>Don't have an account? <a href="#">Sign up</a></p>
-  </footer>
-</main>
+      <button type="submit" class="submit-btn">
+        <span>Sign In to Dashboard</span>
+        <span class="btn-arrow">→</span>
+      </button>
+    </form>
+
+    <footer class="login-footer">
+      <p>Don't have an account? <a href="#">Create an account</a></p>
+    </footer>
+  </main>
+</div>
+
