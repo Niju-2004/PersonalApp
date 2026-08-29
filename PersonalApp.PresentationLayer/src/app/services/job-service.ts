@@ -8,6 +8,11 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root'
 })
 export class JobService {
+  private localhostWebApi = 'https://localhost:7228/api';
+  private deployedWebApi = 'https://personalapp-pd9o.onrender.com/api';
+
+  private baseWebApi = this.deployedWebApi;
+
   constructor(private http: HttpClient) { }
 
   addJobs(applicationId:number, userId:number, companyName:string, jobTitle:string,
@@ -27,7 +32,7 @@ export class JobService {
       notes: notes ? notes : null
     };
 
-    return this.http.post<number>(`https://localhost:7228/api/jobs/addJob`, payload); 
+    return this.http.post<number>(`${this.baseWebApi}/jobs/addJob`, payload); 
   }
 
 }

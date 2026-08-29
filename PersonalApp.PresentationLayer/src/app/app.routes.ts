@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { Loginpage } from './loginpage/loginpage';
 import { Dashboard } from './dashboard/dashboard';
 import { Layout } from './layout/layout';
-import path from 'node:path/win32';
 import { Jobs } from './jobs/jobs';
 
 export const routes: Routes = [
@@ -17,3 +16,4 @@ export const routes: Routes = [
       ]
   }
 ];
+
