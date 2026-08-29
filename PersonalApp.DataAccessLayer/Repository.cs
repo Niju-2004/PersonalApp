@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using PersonalApp.DataAccessLayer.Entities;
@@ -13,9 +13,7 @@ namespace PersonalApp.DataAccessLayer
 
         public Repository(PersonalDashboardDbContext context)
         {
-
             _context = context;
-
         }
 
         public List<User> GetAllUsers()
@@ -25,6 +23,18 @@ namespace PersonalApp.DataAccessLayer
 
         public int userRegistration(User user)
         {
+            // Check if email is already registered
+            var existingUser = _context.Users.FirstOrDefault(u => u.Email.ToLower() == user.Email.ToLower());
+            if (existingUser != null)
+            {
+                return -1; // -1 indicates email already exists
+            }
+
+            if (user.CreatedAt == default)
+            {
+                user.CreatedAt = DateTime.UtcNow;
+            }
+
             _context.Users.Add(user);
             _context.SaveChanges();
 
@@ -33,7 +43,6 @@ namespace PersonalApp.DataAccessLayer
 
         public int userVerify(string Email, string Password)
         {
-
             var user = _context.Users.FirstOrDefault(
                 u => u.Email == Email &&
                 u.Password == Password);
@@ -46,7 +55,6 @@ namespace PersonalApp.DataAccessLayer
             {
                 return 1;
             }
-
         }
 
         public User userInformation(string Email, string Password) 
@@ -80,3 +88,4 @@ namespace PersonalApp.DataAccessLayer
         }
     }
 }
+

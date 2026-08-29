@@ -4,6 +4,7 @@ import { Dashboard } from './dashboard/dashboard';
 import { Layout } from './layout/layout';
 import { Jobs } from './jobs/jobs';
 import { UserRegistration } from './user-registration/user-registration';
+import { authGuard } from './guard/auth-guard';
 
 export const routes: Routes = [
   { path: '', component: Loginpage },
@@ -11,6 +12,7 @@ export const routes: Routes = [
   { path: 'userRegistration', component: UserRegistration },
   {
     path: 'layout', component: Layout,
+    canActivate: [authGuard],
     children:
       [
         { path: 'dashboard', component: Dashboard },

@@ -29,7 +29,7 @@ export class UserRegistration {
     this.errorMessage = '';
     this.successMessage = '';
 
-    // Simple validation
+    // Validation
     if (!this.name.trim() || !this.email.trim() || !this.password.trim()) {
       this.errorMessage = 'Please fill in all required fields.';
       return;
@@ -48,18 +48,24 @@ export class UserRegistration {
     this.isLoading = true;
 
     this.userService.userRegistration(this.name, this.email, this.password).subscribe({
-      next: (userId) => {
+      next: (res) => {
         this.isLoading = false;
-        console.log('User registered with ID:', userId);
-        this.successMessage = 'Account created successfully! Redirecting to login...';
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 1500);
+        if (res === -1) {
+          this.errorMessage = '⚠️ Email already registered! Please sign in or use another email.';
+          return;
+        }
+
+        if (res > 0) {
+          this.successMessage = '🎉 Account created successfully! Redirecting to login...';
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 1800);
+        }
       },
       error: (err) => {
         this.isLoading = false;
-        console.error('Registration failed:', err);
-        this.errorMessage = 'Registration failed. Email might already be in use.';
+        console.error('Registration error:', err);
+        this.errorMessage = '⚠️ Email already registered! Please sign in or use another email.';
       }
     });
   }
