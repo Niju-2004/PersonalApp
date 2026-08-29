@@ -45,7 +45,7 @@ namespace PersonalApp.ServiceLayer
 
             var app = builder.Build();
 
-            // 1. CORS MUST be the very first middleware so all requests (including preflight OPTIONS) receive CORS headers
+            // 1. Put CORS first
             app.UseCors("AllowAngular");
 
             // 2. Enable Swagger
@@ -59,5 +59,4 @@ namespace PersonalApp.ServiceLayer
             app.Run();
         }
     }
-}
 }
