@@ -38,5 +38,13 @@ namespace PersonalApp.ServiceLayer.Controllers
             return res;
             
         }
+
+        [HttpPost("userRegistration")]
+
+        public IActionResult userRegistrationCT(User user)
+        {
+            var res = _repository.userRegistration(user);
+            return Ok(res);
+        }
     }
 }

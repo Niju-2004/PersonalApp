@@ -1,0 +1,106 @@
+<div class="register-wrapper">
+  <!-- Glowing Ambient Background Orbs -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <main class="register-container">
+    <header class="register-header">
+      <div class="brand-badge">
+        <span class="badge-sparkle">✨</span>
+        <span>Join Personal Suite</span>
+      </div>
+      
+      <!-- Catchy Brand Title in Red & Violet -->
+      <h1 class="dashboard-brand-title">Niju's Dashboard</h1>
+      
+      <h2 class="welcome-heading">Create an Account</h2>
+      <p class="welcome-subtext">Sign up to start tracking your jobs, tasks & goals</p>
+    </header>
+
+    <!-- Error Alert -->
+    <div class="alert alert-error" *ngIf="errorMessage">
+      <span class="alert-icon">⚠️</span>
+      <span>{{ errorMessage }}</span>
+    </div>
+
+    <!-- Success Alert -->
+    <div class="alert alert-success" *ngIf="successMessage">
+      <span class="alert-icon">✅</span>
+      <span>{{ successMessage }}</span>
+    </div>
+
+    <form class="register-form" (ngSubmit)="onSubmit()">
+      <!-- Full Name -->
+      <div class="input-group">
+        <label for="name">Full Name *</label>
+        <div class="input-field-wrapper">
+          <span class="field-icon">👤</span>
+          <input type="text"
+                 id="name"
+                 name="name"
+                 [(ngModel)]="name"
+                 placeholder="e.g. John Doe"
+                 required
+                 autocomplete="name">
+        </div>
+      </div>
+
+      <!-- Email Address -->
+      <div class="input-group">
+        <label for="email">Email Address *</label>
+        <div class="input-field-wrapper">
+          <span class="field-icon">✉️</span>
+          <input type="email"
+                 id="email"
+                 name="email"
+                 [(ngModel)]="email"
+                 placeholder="name@example.com"
+                 required
+                 autocomplete="email">
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="input-group">
+        <label for="password">Password *</label>
+        <div class="input-field-wrapper">
+          <span class="field-icon">🔒</span>
+          <input type="password"
+                 id="password"
+                 name="password"
+                 [(ngModel)]="password"
+                 placeholder="••••••••"
+                 required
+                 autocomplete="new-password">
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="input-group">
+        <label for="confirmPassword">Confirm Password *</label>
+        <div class="input-field-wrapper">
+          <span class="field-icon">🔑</span>
+          <input type="password"
+                 id="confirmPassword"
+                 name="confirmPassword"
+                 [(ngModel)]="confirmPassword"
+                 placeholder="••••••••"
+                 required
+                 autocomplete="new-password">
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-btn" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Create Account</span>
+        <span *ngIf="isLoading">Creating account...</span>
+        <span class="btn-arrow" *ngIf="!isLoading">→</span>
+      </button>
+    </form>
+
+    <footer class="register-footer">
+      <p>Already have an account? <a routerLink="/login">Sign in</a></p>
+    </footer>
+  </main>
+</div>
+

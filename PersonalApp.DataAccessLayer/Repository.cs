@@ -23,6 +23,14 @@ namespace PersonalApp.DataAccessLayer
             return _context.Users.ToList();
         }
 
+        public int userRegistration(User user)
+        {
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
+            return user.UserId;
+        }
+
         public int userVerify(string Email, string Password)
         {
 

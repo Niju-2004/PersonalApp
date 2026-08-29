@@ -1,6 +1,19 @@
 <div class="app-layout">
 
-  <!-- STATIC SIDEBAR -->
+  <!-- MOBILE TOPBAR (Visible only on mobile <= 768px) -->
+  <header class="mobile-topbar">
+    <div class="mobile-logo">
+      <div class="logo-icon-badge-sm">✨</div>
+      <div class="mobile-logo-text">
+        <span class="mobile-brand-title">Niju's Dashboard</span>
+      </div>
+    </div>
+    <button class="mobile-logout-btn" (click)="logout()" title="Logout">
+      🚪
+    </button>
+  </header>
+
+  <!-- DESKTOP SIDEBAR (Visible on screens > 768px) -->
   <aside class="sidebar">
 
     <div class="logo">
@@ -68,12 +81,33 @@
 
   </aside>
 
+  <!-- MOBILE BOTTOM NAVIGATION (Visible only on mobile <= 768px) -->
+  <nav class="mobile-bottom-nav">
+    <a routerLink="/layout/dashboard" routerLinkActive="active" class="bottom-nav-item">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Dashboard</span>
+    </a>
+    <a routerLink="/layout/jobs" routerLinkActive="active" class="bottom-nav-item">
+      <span class="nav-icon">💼</span>
+      <span class="nav-label">Jobs</span>
+    </a>
+    <a routerLink="/applications" routerLinkActive="active" class="bottom-nav-item">
+      <span class="nav-icon">📄</span>
+      <span class="nav-label">Apps</span>
+    </a>
+    <a routerLink="/interviews" routerLinkActive="active" class="bottom-nav-item">
+      <span class="nav-icon">🎤</span>
+      <span class="nav-label">Interviews</span>
+    </a>
+    <a routerLink="/tasks" routerLinkActive="active" class="bottom-nav-item">
+      <span class="nav-icon">✅</span>
+      <span class="nav-label">Tasks</span>
+    </a>
+  </nav>
 
-  <!-- ONLY THIS PART CHANGES -->
+  <!-- MAIN CONTENT -->
   <main class="main-content">
-
     <router-outlet></router-outlet>
-
   </main>
 
 </div>

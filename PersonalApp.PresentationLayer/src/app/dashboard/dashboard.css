@@ -32,6 +32,7 @@
   font-weight: 800;
   color: #1e1b4b;
   letter-spacing: -0.5px;
+  word-break: break-word;
 }
 
 .name-gradient {
@@ -261,23 +262,71 @@
 
 
 /* =========================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (Tablets & Mobile)
    ========================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 1024px) {
   .stats-container,
   .actions-container {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 640px) {
+  .welcome-section {
+    margin-bottom: 25px;
+  }
+
+  .welcome-section h1 {
+    font-size: 22px;
+  }
+
+  .welcome-section p {
+    font-size: 14px;
+  }
+
   .stats-container,
   .actions-container {
     grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 30px;
   }
-  .welcome-section h1 {
-    font-size: 26px;
+
+  .stat-card {
+    padding: 16px 18px;
+    border-radius: 14px;
+  }
+
+  .stat-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+    border-radius: 10px;
+  }
+
+  .stat-info h2 {
+    font-size: 24px;
+  }
+
+  .action-card {
+    padding: 16px 18px;
+    border-radius: 14px;
+  }
+
+  .action-icon {
+    width: 46px;
+    height: 46px;
+    font-size: 20px;
+    border-radius: 10px;
+  }
+
+  .section-heading h2 {
+    font-size: 20px;
+  }
+
+  .section-heading p {
+    font-size: 13px;
   }
 }
 
