@@ -1,29 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { inherits } from 'node:util';
 import { UserService } from '../services/user-service';
-import { email } from '@angular/forms/signals';
-// import { Router } from 'express';
-import { Router, RouterLink, RouterOutlet } from '@angular/router'
-import { FormsModule } from '@angular/forms'
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { IUser } from '../interfaces/IUser';
 
 @Component({
-  imports: [FormsModule, RouterOutlet, RouterLink],
+  imports: [FormsModule],
   selector: 'app-loginpage',
   styleUrl: './loginpage.css',
   templateUrl: './loginpage.html',
 })
-
 export class Loginpage implements OnInit {
 
   email: string = '';
   password: string = '';
   constructor(private userService: UserService, private route: Router) { }
 
-  ngOnInit(){
+  ngOnInit() {
      
   }
-
 
   onSubmit() {
     console.log("email", this.email);
@@ -34,20 +29,13 @@ export class Loginpage implements OnInit {
         this.userService.userInformation(this.email, this.password).subscribe((r: IUser) => {
           console.log("User details", r);
           localStorage.setItem("user", JSON.stringify(r));
-          this.route.navigate(['/layout/dashboard'])
-        })
+          this.route.navigate(['/layout/dashboard']);
+        });
       }
       else {
         console.log("Invalid user");
-       
       }
-    })
-
-    
+    });
   }
-
 }
-
-
-
 

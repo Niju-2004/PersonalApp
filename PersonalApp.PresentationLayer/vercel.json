@@ -1,0 +1,10 @@
+{
+  "outputDirectory": "dist/PersonalApp.PresentationLayer/browser",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+
