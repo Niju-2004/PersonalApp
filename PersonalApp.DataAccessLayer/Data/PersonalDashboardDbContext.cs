@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using PersonalApp.DataAccessLayer.Entities;
@@ -25,6 +25,8 @@ public partial class PersonalDashboardDbContext : DbContext
     public virtual DbSet<PersonalApp.DataAccessLayer.Entities.Task> Tasks { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<Saving> Savings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -106,8 +108,20 @@ public partial class PersonalDashboardDbContext : DbContext
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
         });
 
+        modelBuilder.Entity<Saving>(entity =>
+        {
+            entity.HasKey(e => e.SavingsId);
+
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Savings)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
+

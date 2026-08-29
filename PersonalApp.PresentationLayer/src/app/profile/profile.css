@@ -1,0 +1,335 @@
+/* ==========================================================================
+   PROFILE PAGE (Red & Violet Modern Dashboard Styling)
+   ========================================================================== */
+
+.profile-page {
+  padding: 10px 0 40px 0;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Page Header */
+.page-header {
+  margin-bottom: 24px;
+}
+
+.brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #7c3aed;
+  margin-bottom: 8px;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+  color: #1e1b4b;
+  letter-spacing: -0.5px;
+}
+
+.header-text p {
+  margin: 6px 0 0 0;
+  color: #64748b;
+  font-size: 15px;
+}
+
+
+/* ==========================================================================
+   1. USER IDENTITY CARD (Glowing Avatar & Meta Details)
+   ========================================================================== */
+
+.identity-card {
+  background: #ffffff;
+  border: 1.5px solid #edf0f7;
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.05);
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.identity-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #e11d48 0%, #7c3aed 100%);
+}
+
+.avatar-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.glowing-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #e11d48 0%, #7c3aed 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 25px rgba(225, 29, 72, 0.35),
+              0 4px 12px rgba(124, 58, 237, 0.3);
+  border: 3px solid #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.identity-card:hover .glowing-avatar {
+  transform: scale(1.05) rotate(-2deg);
+}
+
+.identity-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.name-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.user-fullname {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #e11d48, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.verified-badge {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.user-meta-list {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #475569;
+}
+
+.meta-icon {
+  font-size: 16px;
+}
+
+.meta-text strong {
+  color: #1e1b4b;
+}
+
+
+/* ==========================================================================
+   2. SUMMARY STATS SECTION
+   ========================================================================== */
+
+.summary-stats-section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  margin-bottom: 18px;
+}
+
+.section-title h2 {
+  margin: 0 0 4px 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #1e1b4b;
+}
+
+.section-title p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.stat-box {
+  background: #ffffff;
+  border: 1.5px solid #edf0f7;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.stat-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(124, 58, 237, 0.08);
+}
+
+.box-violet:hover { border-color: #c4b5fd; }
+.box-rose:hover { border-color: #fda4af; }
+.box-purple:hover { border-color: #d8b4fe; }
+.box-red:hover { border-color: #fecdd3; }
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-icon {
+  font-size: 24px;
+}
+
+.stat-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.stat-num {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1e1b4b;
+}
+
+.box-rose .stat-num {
+  background: linear-gradient(135deg, #e11d48, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+
+/* ==========================================================================
+   3. ACCOUNT ACTIONS CARD (Logout)
+   ========================================================================== */
+
+.account-actions-card {
+  background: #ffffff;
+  border: 1px solid #edf0f7;
+  border-radius: 16px;
+  padding: 22px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.action-info h3 {
+  margin: 0 0 4px 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1e1b4b;
+}
+
+.action-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.logout-action-btn {
+  padding: 12px 24px;
+  background: #fff1f2;
+  border: 1.5px solid #fecdd3;
+  color: #e11d48;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.logout-action-btn:hover {
+  background: #e11d48;
+  color: #ffffff;
+  border-color: #e11d48;
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.3);
+  transform: translateY(-2px);
+}
+
+
+/* ==========================================================================
+   4. MOBILE RESPONSIVE (<= 640px)
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .identity-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22px;
+    gap: 18px;
+  }
+
+  .user-meta-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .account-actions-card {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .logout-action-btn {
+    width: 100%;
+  }
+}
+

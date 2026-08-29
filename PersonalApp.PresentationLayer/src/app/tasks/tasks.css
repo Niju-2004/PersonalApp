@@ -1,0 +1,197 @@
+/* ==========================================================================
+   TASKS PLACEHOLDER PAGE (Red & Violet Styling)
+   ========================================================================== */
+
+.tasks-page {
+  padding: 10px 0 40px 0;
+  max-width: 900px;
+  margin: auto;
+}
+
+/* Page Header */
+.page-header {
+  margin-bottom: 24px;
+}
+
+.brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #7c3aed;
+  margin-bottom: 8px;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+  color: #1e1b4b;
+  letter-spacing: -0.5px;
+}
+
+.header-text p {
+  margin: 6px 0 0 0;
+  color: #64748b;
+  font-size: 15px;
+}
+
+
+/* ==========================================================================
+   COMING SOON CARD
+   ========================================================================== */
+
+.coming-soon-card {
+  background: #ffffff;
+  border: 1.5px dashed #cbd5e1;
+  border-radius: 24px;
+  padding: 60px 30px;
+  text-align: center;
+  box-shadow: 0 4px 25px rgba(124, 58, 237, 0.04);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.glow-orb {
+  position: absolute;
+  top: -50px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(225, 29, 72, 0.1) 0%, rgba(124, 58, 237, 0.1) 60%, transparent 80%);
+  pointer-events: none;
+}
+
+.icon-badge {
+  width: 80px;
+  height: 80px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%);
+  border: 1.5px solid rgba(124, 58, 237, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.1);
+}
+
+.animated-icon {
+  font-size: 38px;
+  animation: bounce 2s infinite ease-in-out;
+}
+
+.coming-soon-card h2 {
+  margin: 0 0 12px 0;
+  font-size: 26px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #e11d48, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.description {
+  max-width: 540px;
+  margin: 0 0 24px 0;
+  font-size: 15px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.description strong {
+  color: #1e1b4b;
+}
+
+/* Feature Preview Chips */
+.feature-preview-chips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.preview-chip {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-primary {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #e11d48 0%, #7c3aed 100%);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #be123c 0%, #6d28d9 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(225, 29, 72, 0.4);
+}
+
+.btn-secondary {
+  padding: 12px 24px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #ede9fe;
+  border-color: #c4b5fd;
+  color: #7c3aed;
+  transform: translateY(-2px);
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@media (max-width: 640px) {
+  .coming-soon-card {
+    padding: 40px 18px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
+

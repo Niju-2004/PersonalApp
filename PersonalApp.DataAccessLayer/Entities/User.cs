@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -47,4 +47,9 @@ public partial class User
     [InverseProperty("User")]
     [JsonIgnore]
     public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
+
+    [InverseProperty("User")]
+    [JsonIgnore]
+    public virtual ICollection<Saving> Savings { get; set; } = new List<Saving>();
 }
+

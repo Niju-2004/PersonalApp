@@ -8,9 +8,13 @@
         <span class="mobile-brand-title">Niju's Dashboard</span>
       </div>
     </div>
-    <button class="mobile-logout-btn" (click)="logout()" title="Logout">
-      🚪
-    </button>
+
+    <div class="mobile-top-right">
+      <span class="mobile-date-badge">📅 {{ todayDate | date:'d MMM y' }}</span>
+      <button class="mobile-logout-btn" (click)="logout()" title="Logout">
+        🚪
+      </button>
+    </div>
   </header>
 
   <!-- DESKTOP SIDEBAR (Visible on screens > 768px) -->
@@ -21,6 +25,15 @@
       <div class="logo-text">
         <h2>Personal<span>App</span></h2>
         <span class="logo-sub">Niju's Dashboard</span>
+      </div>
+    </div>
+
+    <!-- Today's Date Badge in Sidebar -->
+    <div class="sidebar-date-box">
+      <span class="date-icon">📅</span>
+      <div class="date-details">
+        <span class="date-label">Today's Date</span>
+        <strong class="date-value">{{ todayDate | date:'EEE, d MMM y' }}</strong>
       </div>
     </div>
 
@@ -40,21 +53,14 @@
         <span>Jobs</span>
       </a>
 
-      <a routerLink="/applications"
+      <a routerLink="/layout/savings"
          routerLinkActive="active"
          class="menu-item">
-        <span class="menu-icon">📄</span>
-        <span>Applications</span>
+        <span class="menu-icon">💰</span>
+        <span>Savings</span>
       </a>
 
-      <a routerLink="/interviews"
-         routerLinkActive="active"
-         class="menu-item">
-        <span class="menu-icon">🎤</span>
-        <span>Interviews</span>
-      </a>
-
-      <a routerLink="/tasks"
+      <a routerLink="/layout/tasks"
          routerLinkActive="active"
          class="menu-item">
         <span class="menu-icon">✅</span>
@@ -65,7 +71,7 @@
 
     <div class="sidebar-bottom">
 
-      <a routerLink="/profile"
+      <a routerLink="/layout/profile"
          routerLinkActive="active"
          class="menu-item">
         <span class="menu-icon">👤</span>
@@ -91,17 +97,17 @@
       <span class="nav-icon">💼</span>
       <span class="nav-label">Jobs</span>
     </a>
-    <a routerLink="/applications" routerLinkActive="active" class="bottom-nav-item">
-      <span class="nav-icon">📄</span>
-      <span class="nav-label">Apps</span>
+    <a routerLink="/layout/savings" routerLinkActive="active" class="bottom-nav-item">
+      <span class="nav-icon">💰</span>
+      <span class="nav-label">Savings</span>
     </a>
-    <a routerLink="/interviews" routerLinkActive="active" class="bottom-nav-item">
-      <span class="nav-icon">🎤</span>
-      <span class="nav-label">Interviews</span>
-    </a>
-    <a routerLink="/tasks" routerLinkActive="active" class="bottom-nav-item">
+    <a routerLink="/layout/tasks" routerLinkActive="active" class="bottom-nav-item">
       <span class="nav-icon">✅</span>
       <span class="nav-label">Tasks</span>
+    </a>
+    <a routerLink="/layout/profile" routerLinkActive="active" class="bottom-nav-item">
+      <span class="nav-icon">👤</span>
+      <span class="nav-label">Profile</span>
     </a>
   </nav>
 

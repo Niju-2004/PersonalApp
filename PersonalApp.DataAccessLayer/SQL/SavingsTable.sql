@@ -1,0 +1,16 @@
+USE PersonalDashboardDB;
+GO
+
+CREATE TABLE Savings (
+    SavingsId INT IDENTITY(1,1) PRIMARY KEY,
+    UserId INT NOT NULL,
+    BankName NVARCHAR(100) NOT NULL,
+    Reason NVARCHAR(200) NOT NULL,
+    Amount DECIMAL(18, 2) NOT NULL,
+    SavingsDate DATETIME2 NOT NULL,
+    TargetAmount DECIMAL(18, 2) NULL,
+    Notes NVARCHAR(MAX) NULL,
+    CreatedAt DATETIME2 DEFAULT GETDATE(),
+    CONSTRAINT FK_Savings_Users FOREIGN KEY (UserId) REFERENCES Users (UserId) ON DELETE CASCADE
+);
+GO

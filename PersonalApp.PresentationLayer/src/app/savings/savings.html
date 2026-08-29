@@ -1,0 +1,319 @@
+<div class="savings-page">
+
+  <!-- ==========================================
+       PAGE HEADER & SUMMARY
+       ========================================== -->
+  <header class="page-header">
+    <div class="header-text">
+      <div class="brand-pill">
+        <span>💰 Wealth & Savings Hub</span>
+      </div>
+      <h1>My Savings & Bank Accounts</h1>
+      <p>Manage savings across your different banks, emergency funds, and financial targets.</p>
+    </div>
+    
+    <button class="add-bucket-btn" (click)="openAddSavings()">
+      <span>+ New Savings Bucket</span>
+    </button>
+  </header>
+
+  <!-- Total Savings Summary Bar -->
+  <section class="savings-summary-bar">
+    <div class="summary-item">
+      <span class="summary-label">Total Accumulated Savings</span>
+      <strong class="summary-value">₹{{ totalSavingsOverall | number:'1.2-2' }}</strong>
+    </div>
+
+    <div class="summary-divider"></div>
+
+    <div class="summary-item">
+      <span class="summary-label">Active Savings Buckets</span>
+      <span class="summary-count">{{ buckets.length }} Accounts</span>
+    </div>
+  </section>
+
+  <!-- Loading State -->
+  <div class="loading-spinner-wrapper" *ngIf="isLoading && buckets.length === 0">
+    <div class="spinner"></div>
+    <p>Loading your savings...</p>
+  </div>
+
+
+  <!-- ==========================================
+       LEVEL 1: SAVINGS BUCKETS GRID
+       ========================================== -->
+  <main class="buckets-grid" *ngIf="buckets.length > 0">
+    <article class="bucket-card" *ngFor="let bucket of buckets" (click)="openHistory(bucket)">
+      
+      <!-- Card Header -->
+      <div class="bucket-card-header">
+        <div class="bank-badge">
+          <span class="bank-icon">{{ getBankIcon(bucket.bankName) }}</span>
+          <span class="bank-name">{{ bucket.bankName }}</span>
+        </div>
+        <span class="txn-count-badge">{{ bucket.transactionCount }} deposits</span>
+      </div>
+
+      <!-- Purpose / Reason -->
+      <h2 class="bucket-reason">{{ bucket.reason }}</h2>
+
+      <!-- Balance -->
+      <div class="bucket-balance-section">
+        <span class="balance-label">Current Balance</span>
+        <h3 class="balance-amount">₹{{ bucket.totalBalance | number:'1.2-2' }}</h3>
+      </div>
+
+      <!-- Target Goal Progress Bar (If set) -->
+      <div class="target-progress-box" *ngIf="bucket.targetAmount">
+        <div class="progress-labels">
+          <span>Target: ₹{{ bucket.targetAmount | number:'1.0-0' }}</span>
+          <strong>{{ getProgressPercentage(bucket) }}%</strong>
+        </div>
+        <div class="progress-track">
+          <div class="progress-bar" [style.width.%]="getProgressPercentage(bucket)"></div>
+        </div>
+      </div>
+
+      <!-- Card Footer -->
+      <div class="bucket-card-footer">
+        <span class="last-date">Latest: {{ bucket.lastDepositDate | date:'mediumDate' }}</span>
+        <button class="view-history-btn" (click)="$event.stopPropagation(); openHistory(bucket)">
+          <span>View History & Add</span>
+          <span class="arrow">→</span>
+        </button>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Empty State -->
+  <section class="no-savings-state" *ngIf="!isLoading && buckets.length === 0">
+    <div class="empty-icon">🏦</div>
+    <h2>No Savings Accounts Found</h2>
+    <p>Start tracking your savings across different banks and goals today!</p>
+    <button class="add-bucket-btn" (click)="openAddSavings()">+ Add Your First Savings</button>
+  </section>
+
+
+  <!-- ==========================================================================
+       LEVEL 2: BANK HISTORY & MONTH-YEAR TIMELINE MODAL DIALOG
+       ========================================================================== -->
+  <div class="modal-backdrop" *ngIf="isHistoryModalOpen" (click)="closeHistoryModal()"></div>
+
+  <div class="history-modal-dialog" *ngIf="isHistoryModalOpen && selectedBucket">
+
+    <!-- Modal Header -->
+    <header class="modal-header">
+      <button class="back-link-btn" (click)="closeHistoryModal()">
+        ← Back to Savings
+      </button>
+      <button class="modal-close-icon" (click)="closeHistoryModal()">✕</button>
+    </header>
+
+    <!-- Account Details Banner -->
+    <div class="modal-account-banner">
+      <div class="banner-left">
+        <div class="bank-avatar">
+          {{ getBankIcon(selectedBucket.bankName) }}
+        </div>
+        <div>
+          <h2>{{ selectedBucket.bankName }}</h2>
+          <span class="reason-tag">🎯 {{ selectedBucket.reason }}</span>
+        </div>
+      </div>
+
+      <div class="banner-right">
+        <span class="total-saved-label">Total Saved</span>
+        <strong class="total-saved-val">₹{{ selectedBucket.totalBalance | number:'1.2-2' }}</strong>
+      </div>
+    </div>
+
+    <!-- Target Goal Bar in Modal -->
+    <div class="modal-goal-box" *ngIf="selectedBucket.targetAmount">
+      <div class="goal-labels">
+        <span>Target: ₹{{ selectedBucket.targetAmount | number:'1.0-0' }}</span>
+        <strong>{{ getProgressPercentage(selectedBucket) }}% Achieved</strong>
+      </div>
+      <div class="progress-track">
+        <div class="progress-bar" [style.width.%]="getProgressPercentage(selectedBucket)"></div>
+      </div>
+    </div>
+
+    <!-- Filter Bar: Interactive Month & Year Dropdown -->
+    <section class="history-filter-bar">
+      <div class="filter-dropdown-group">
+        <label for="monthFilter">📅 Filter by Month:</label>
+        <select id="monthFilter"
+                [ngModel]="selectedMonthFilter"
+                (ngModelChange)="onMonthFilterChange($event)">
+          <option value="ALL">All Time (All Months)</option>
+          <option *ngFor="let m of availableMonthYears" [value]="m">
+            {{ m }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-total-badge">
+        <span>Selected Period Total:</span>
+        <strong>₹{{ filteredHistoryTotal | number:'1.2-2' }}</strong>
+      </div>
+    </section>
+
+    <!-- Modal Scrollable Body: Chronological Monthly Groups -->
+    <div class="modal-body-history">
+
+      <div class="no-records-msg" *ngIf="filteredMonthlyGroups.length === 0">
+        <p>No records found for the selected month.</p>
+      </div>
+
+      <!-- Loop through each Month Group -->
+      <section class="month-group-card" *ngFor="let group of filteredMonthlyGroups">
+        
+        <!-- Month Header -->
+        <header class="month-header">
+          <div class="month-title">
+            <span class="calendar-icon">📅</span>
+            <h3>{{ group.monthYearKey }}</h3>
+          </div>
+          <span class="month-subtotal">+₹{{ group.monthTotal | number:'1.2-2' }}</span>
+        </header>
+
+        <!-- Transaction Items in this Month -->
+        <div class="month-transactions-list">
+          <div class="transaction-row" *ngFor="let item of group.items">
+            <div class="txn-left">
+              <span class="txn-plus-icon">+</span>
+              <div>
+                <span class="txn-date">{{ item.savingsDate | date:'mediumDate' }}</span>
+                <p class="txn-notes" *ngIf="item.notes">{{ item.notes }}</p>
+              </div>
+            </div>
+
+            <div class="txn-right">
+              <span class="txn-amount">+₹{{ item.amount | number:'1.2-2' }}</span>
+              <button class="txn-delete-btn" (click)="deleteSaving(item.savingsId)" title="Delete entry">🗑️</button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- Modal Footer Actions (Quick Deposit & Custom Deposit) -->
+    <footer class="modal-footer-actions">
+      <div class="quick-deposit-pills">
+        <span class="quick-label">⚡ Quick Deposit:</span>
+        <button class="quick-pill" (click)="quickDeposit(1000)">+₹1,000</button>
+        <button class="quick-pill" (click)="quickDeposit(5000)">+₹5,000</button>
+        <button class="quick-pill" (click)="quickDeposit(10000)">+₹10,000</button>
+      </div>
+
+      <button class="btn-add-deposit" (click)="openAddSavings(selectedBucket)">
+        <span>+ Add Custom Deposit</span>
+      </button>
+    </footer>
+
+  </div>
+
+
+  <!-- ==========================================================================
+       LEVEL 3: SLIDE-OVER DRAWER (Add Savings / New Bucket)
+       ========================================================================== -->
+  <div class="drawer-backdrop" *ngIf="isAddBucketOpen" (click)="closeAddSavings()"></div>
+
+  <aside class="drawer-panel" [class.open]="isAddBucketOpen">
+    <header class="drawer-header">
+      <h2>Add Savings Deposit</h2>
+      <button class="close-btn" (click)="closeAddSavings()">✕</button>
+    </header>
+
+    <div class="drawer-body">
+      
+      <!-- Error Alert -->
+      <div class="alert-box alert-error" *ngIf="errorMessage">
+        <span>⚠️ {{ errorMessage }}</span>
+      </div>
+
+      <form class="drawer-form" (ngSubmit)="saveSavingsEntry()">
+        
+        <!-- Bank Name -->
+        <div class="form-group">
+          <label for="bankName">Bank / Account Name *</label>
+          <input type="text"
+                 id="bankName"
+                 [(ngModel)]="formBankName"
+                 name="bankName"
+                 placeholder="e.g. HDFC Bank, SBI, Zerodha, Cash"
+                 required>
+        </div>
+
+        <!-- Purpose / Reason -->
+        <div class="form-group">
+          <label for="reason">Savings Purpose / Reason *</label>
+          <input type="text"
+                 id="reason"
+                 [(ngModel)]="formReason"
+                 name="reason"
+                 placeholder="e.g. Emergency Fund, New Bike, Travel"
+                 required>
+        </div>
+
+        <!-- Deposit Amount & Date -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="amount">Deposit Amount (₹) *</label>
+            <input type="number"
+                   id="amount"
+                   [(ngModel)]="formAmount"
+                   name="amount"
+                   placeholder="e.g. 5000"
+                   min="1"
+                   required>
+          </div>
+
+          <div class="form-group">
+            <label for="savingsDate">Date *</label>
+            <input type="date"
+                   id="savingsDate"
+                   [(ngModel)]="formSavingsDate"
+                   name="savingsDate"
+                   required>
+          </div>
+        </div>
+
+        <!-- Optional Target Amount -->
+        <div class="form-group">
+          <label for="targetAmount">Target Goal Amount (Optional ₹)</label>
+          <input type="number"
+                 id="targetAmount"
+                 [(ngModel)]="formTargetAmount"
+                 name="targetAmount"
+                 placeholder="e.g. 100000">
+        </div>
+
+        <!-- Notes -->
+        <div class="form-group">
+          <label for="notes">Notes / Remarks</label>
+          <textarea id="notes"
+                    [(ngModel)]="formNotes"
+                    name="notes"
+                    rows="3"
+                    placeholder="e.g. Monthly salary savings, bonus, freelance..."></textarea>
+        </div>
+
+        <!-- Submit Buttons -->
+        <div class="drawer-footer">
+          <button type="button" class="btn-cancel" (click)="closeAddSavings()">Cancel</button>
+          <button type="submit" class="btn-save" [disabled]="isLoading">
+            <span *ngIf="!isLoading">Save Deposit</span>
+            <span *ngIf="isLoading">Saving...</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </aside>
+
+</div>
+

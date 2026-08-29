@@ -17,7 +17,14 @@
       <p class="welcome-subtext">Please enter your details to sign in</p>
     </header>
 
+    <!-- Error Alert Banner -->
+    <div class="alert alert-error" *ngIf="errorMessage">
+      <span class="alert-icon">⚠️</span>
+      <span>{{ errorMessage }}</span>
+    </div>
+
     <form class="login-form" (ngSubmit)="onSubmit()">
+      <!-- Email Address -->
       <div class="input-group">
         <label for="email">Email Address</label>
         <div class="input-field-wrapper">
@@ -32,17 +39,25 @@
         </div>
       </div>
 
+      <!-- Password with Eye Toggle -->
       <div class="input-group">
         <label for="password">Password</label>
         <div class="input-field-wrapper">
           <span class="field-icon">🔒</span>
-          <input type="password"
+          <input [type]="showPassword ? 'text' : 'password'"
                  id="password"
                  name="password"
                  [(ngModel)]="password"
                  placeholder="••••••••"
                  required
                  autocomplete="current-password">
+          <!-- Eye Toggle Button -->
+          <button type="button"
+                  class="eye-toggle-btn"
+                  (click)="togglePasswordVisibility()"
+                  [title]="showPassword ? 'Hide password' : 'Show password'">
+            {{ showPassword ? '🙈' : '👁️' }}
+          </button>
         </div>
       </div>
 
@@ -54,14 +69,15 @@
         <a href="#" class="forgot-password">Forgot password?</a>
       </div>
 
-      <button type="submit" class="submit-btn">
-        <span>Sign In to Dashboard</span>
-        <span class="btn-arrow">→</span>
+      <button type="submit" class="submit-btn" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Sign In to Dashboard</span>
+        <span *ngIf="isLoading">Signing in...</span>
+        <span class="btn-arrow" *ngIf="!isLoading">→</span>
       </button>
     </form>
 
     <footer class="login-footer">
-      <p>Don't have an account? <a routerLink ="/userRegistration">Create an account</a></p>
+      <p>Don't have an account? <a routerLink="/userRegistration">Create an account</a></p>
     </footer>
   </main>
 </div>

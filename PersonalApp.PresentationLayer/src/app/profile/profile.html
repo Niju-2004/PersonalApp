@@ -1,0 +1,124 @@
+<div class="profile-page">
+
+  <!-- ==========================================
+       PAGE HEADER
+       ========================================== -->
+  <header class="page-header">
+    <div class="header-text">
+      <div class="brand-pill">
+        <span>👤 Account & Identity</span>
+      </div>
+      <h1>My Profile</h1>
+      <p>View your personal account details, join date, and personal life statistics.</p>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       1. USER IDENTITY CARD
+       ========================================== -->
+  <section class="identity-card">
+    
+    <div class="avatar-wrapper">
+      <div class="glowing-avatar">
+        <span>{{ initials }}</span>
+      </div>
+    </div>
+
+    <div class="identity-details">
+      
+      <div class="name-badge-row">
+        <h2 class="user-fullname">{{ name }}</h2>
+        <span class="verified-badge">✨ Verified Account</span>
+      </div>
+
+      <div class="user-meta-list">
+        <div class="meta-item">
+          <span class="meta-icon">📧</span>
+          <span class="meta-text">{{ email }}</span>
+        </div>
+
+        <div class="meta-item">
+          <span class="meta-icon">📅</span>
+          <span class="meta-text">Member Since: <strong>{{ createdAt | date:'MMMM y' }}</strong></span>
+        </div>
+
+        <div class="meta-item">
+          <span class="meta-icon">🆔</span>
+          <span class="meta-text">Account ID: <strong>#{{ userId }}</strong></span>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==========================================
+       2. PERSONAL LIFE SUMMARY STATS
+       ========================================== -->
+  <section class="summary-stats-section">
+    <div class="section-title">
+      <h2>Personal Life OS Overview</h2>
+      <p>A quick summary of your career opportunities and wealth savings.</p>
+    </div>
+
+    <div class="stats-grid">
+
+      <!-- Jobs Tracked -->
+      <article class="stat-box box-violet" routerLink="/layout/jobs">
+        <div class="stat-header">
+          <span class="stat-icon">💼</span>
+          <span class="stat-tag">Career</span>
+        </div>
+        <strong class="stat-num">{{ totalJobsCount }}</strong>
+        <span class="stat-label">Jobs Tracked</span>
+      </article>
+
+      <!-- Total Wealth Saved -->
+      <article class="stat-box box-rose" routerLink="/layout/savings">
+        <div class="stat-header">
+          <span class="stat-icon">💰</span>
+          <span class="stat-tag">Finance</span>
+        </div>
+        <strong class="stat-num">₹{{ totalSavingsAmount | number:'1.2-2' }}</strong>
+        <span class="stat-label">Total Wealth Saved</span>
+      </article>
+
+      <!-- Savings Buckets -->
+      <article class="stat-box box-purple" routerLink="/layout/savings">
+        <div class="stat-header">
+          <span class="stat-icon">🏦</span>
+          <span class="stat-tag">Accounts</span>
+        </div>
+        <strong class="stat-num">{{ totalSavingsBuckets }}</strong>
+        <span class="stat-label">Bank Buckets</span>
+      </article>
+
+      <!-- Pending Tasks -->
+      <article class="stat-box box-red" routerLink="/layout/tasks">
+        <div class="stat-header">
+          <span class="stat-icon">✅</span>
+          <span class="stat-tag">Productivity</span>
+        </div>
+        <strong class="stat-num">{{ pendingTasksCount }}</strong>
+        <span class="stat-label">Pending Tasks</span>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       3. ACCOUNT ACTIONS
+       ========================================== -->
+  <section class="account-actions-card">
+    <div class="action-info">
+      <h3>Ready to leave?</h3>
+      <p>Log out securely from your current session on PersonalApp.</p>
+    </div>
+
+    <button class="logout-action-btn" (click)="logout()">
+      <span>🚪 Sign Out of Account</span>
+    </button>
+  </section>
+
+</div>
+

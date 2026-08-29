@@ -20,7 +20,7 @@
   border-right: 1px solid #edf0f7;
   display: flex;
   flex-direction: column;
-  padding: 28px 18px;
+  padding: 24px 18px;
   box-shadow: 2px 0 12px rgba(124, 58, 237, 0.03);
   z-index: 100;
   box-sizing: border-box;
@@ -31,9 +31,9 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 0 8px 30px 8px;
+  padding: 0 8px 18px 8px;
   border-bottom: 1px solid #f1f3f9;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .logo-icon-badge {
@@ -74,6 +74,41 @@
   -webkit-text-fill-color: transparent;
   display: block;
   margin-top: 1px;
+}
+
+/* TODAY'S DATE BADGE IN SIDEBAR */
+.sidebar-date-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+}
+
+.date-icon {
+  font-size: 1.2rem;
+}
+
+.date-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 0.5px;
+}
+
+.date-value {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #1e1b4b;
 }
 
 /* MENU */
@@ -168,12 +203,10 @@
    ========================================= */
 
 @media (max-width: 768px) {
-  /* Hide desktop sidebar */
   .sidebar {
     display: none;
   }
 
-  /* Full screen width main content */
   .main-content {
     margin-left: 0;
     width: 100%;
@@ -193,7 +226,7 @@
     backdrop-filter: blur(10px);
     border-bottom: 1px solid #edf0f7;
     z-index: 998;
-    padding: 0 18px;
+    padding: 0 16px;
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
@@ -203,36 +236,51 @@
   .mobile-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
   }
 
   .logo-icon-badge-sm {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: 8px;
     background: linear-gradient(135deg, #e11d48 0%, #7c3aed 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 15px;
     color: white;
   }
 
   .mobile-brand-title {
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     font-weight: 800;
     background: linear-gradient(135deg, #e11d48, #7c3aed);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
+  .mobile-top-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mobile-date-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #475569;
+    background: #f1f5f9;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+
   .mobile-logout-btn {
     background: #fff1f2;
     border: 1px solid #ffe4e6;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
-    padding: 6px 10px;
-    border-radius: 8px;
+    padding: 4px 8px;
+    border-radius: 6px;
   }
 
   /* Mobile Bottom Navigation Bar */
@@ -268,7 +316,7 @@
     font-weight: 600;
     transition: all 0.2s ease;
     flex: 1;
-    max-width: 75px;
+    max-width: 80px;
   }
 
   .bottom-nav-item .nav-icon {

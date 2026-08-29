@@ -42,6 +42,7 @@ namespace PersonalApp.ServiceLayer
 
             builder.Services.AddScoped<PersonalApp.DataAccessLayer.Repository>();
             builder.Services.AddScoped<PersonalApp.DataAccessLayer.JobRepository>();
+            builder.Services.AddScoped<PersonalApp.DataAccessLayer.SavingsRepository>();
 
             var app = builder.Build();
 
@@ -60,3 +61,4 @@ namespace PersonalApp.ServiceLayer
         }
     }
 }
+

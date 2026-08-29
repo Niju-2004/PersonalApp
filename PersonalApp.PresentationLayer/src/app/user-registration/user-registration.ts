@@ -20,10 +20,21 @@ export class UserRegistration {
   successMessage: string = '';
   isLoading: boolean = false;
 
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
+
   constructor(
     private userService: UserService,
     private router: Router
   ) { }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
 
   onSubmit() {
     this.errorMessage = '';

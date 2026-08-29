@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { Router } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule],
   selector: 'app-layout',
   styleUrl: './layout.css',
   templateUrl: './layout.html',
 })
 export class Layout {
+
+  todayDate: Date = new Date();
 
   constructor(private route: Router) { }
 
@@ -17,3 +19,4 @@ export class Layout {
     this.route.navigate(['/login']);
   }
 }
+

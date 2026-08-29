@@ -7,7 +7,7 @@
       <span>Dashboard Overview</span>
     </div>
     <h1>Welcome back, <span class="name-gradient">{{ name }}</span> 👋</h1>
-    <p>Here's what's happening with your job search & career opportunities.</p>
+    <p>Here's what's happening with your jobs, personal savings & tasks.</p>
   </section>
 
 
@@ -15,11 +15,10 @@
   <section class="stats-container">
 
     <!-- Total Jobs -->
-    <div class="stat-card card-violet">
+    <div class="stat-card card-violet" routerLink="/layout/jobs">
       <div class="stat-icon jobs-icon">
         💼
       </div>
-
       <div class="stat-info">
         <p>Total Jobs</p>
         <h2>{{ totalJobs }}</h2>
@@ -28,40 +27,37 @@
     </div>
 
 
-    <!-- Applications -->
-    <div class="stat-card card-rose">
+    <!-- Total Savings -->
+    <div class="stat-card card-rose" routerLink="/layout/savings">
       <div class="stat-icon applications-icon">
-        📄
+        💰
       </div>
-
       <div class="stat-info">
-        <p>Applications</p>
-        <h2>{{ applications }}</h2>
+        <p>Total Savings</p>
+        <h2>₹{{ totalSavings | number:'1.0-0' }}</h2>
       </div>
       <div class="stat-glow glow-rose"></div>
     </div>
 
 
-    <!-- Interviews -->
-    <div class="stat-card card-purple">
+    <!-- Savings Buckets -->
+    <div class="stat-card card-purple" routerLink="/layout/savings">
       <div class="stat-icon interviews-icon">
-        🎤
+        🏦
       </div>
-
       <div class="stat-info">
-        <p>Interviews</p>
-        <h2>{{ interviews }}</h2>
+        <p>Bank Buckets</p>
+        <h2>{{ savingsBuckets }}</h2>
       </div>
       <div class="stat-glow glow-purple"></div>
     </div>
 
 
     <!-- Pending Tasks -->
-    <div class="stat-card card-red">
+    <div class="stat-card card-red" routerLink="/layout/tasks">
       <div class="stat-icon tasks-icon">
         ✅
       </div>
-
       <div class="stat-info">
         <p>Pending Tasks</p>
         <h2>{{ pendingTasks }}</h2>
@@ -77,7 +73,7 @@
 
     <div class="section-heading">
       <h2>Quick Actions</h2>
-      <p>Quickly manage and update your job pipeline</p>
+      <p>Quickly manage your opportunities and finances</p>
     </div>
 
 
@@ -88,49 +84,45 @@
         <div class="action-icon icon-red">
           💼
         </div>
-
         <div class="action-text">
           <h3>Add Job</h3>
-          <p>Add a new job opportunity</p>
+          <p>Track a new job opportunity</p>
         </div>
         <span class="action-arrow">→</span>
       </div>
 
 
-      <!-- Add Application -->
-      <div class="action-card action-violet" routerLink="/applications">
+      <!-- Add Savings Deposit -->
+      <div class="action-card action-violet" routerLink="/layout/savings">
         <div class="action-icon icon-violet">
-          📄
+          💰
         </div>
-
         <div class="action-text">
-          <h3>Add Application</h3>
-          <p>Track a new application</p>
+          <h3>Add Savings</h3>
+          <p>Log a new bank deposit</p>
         </div>
         <span class="action-arrow">→</span>
       </div>
 
 
-      <!-- Add Interview -->
-      <div class="action-card action-rose" routerLink="/interviews">
+      <!-- View Bank Buckets -->
+      <div class="action-card action-rose" routerLink="/layout/savings">
         <div class="action-icon icon-rose">
-          🎤
+          🏦
         </div>
-
         <div class="action-text">
-          <h3>Add Interview</h3>
-          <p>Schedule an interview</p>
+          <h3>Bank Buckets</h3>
+          <p>View history & goals</p>
         </div>
         <span class="action-arrow">→</span>
       </div>
 
 
       <!-- Add Task -->
-      <div class="action-card action-purple" routerLink="/tasks">
+      <div class="action-card action-purple" routerLink="/layout/tasks">
         <div class="action-icon icon-purple">
           ✅
         </div>
-
         <div class="action-text">
           <h3>Add Task</h3>
           <p>Create a new task</p>
