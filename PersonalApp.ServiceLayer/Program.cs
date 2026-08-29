@@ -1,5 +1,5 @@
-
 using Microsoft.EntityFrameworkCore;
+
 namespace PersonalApp.ServiceLayer
 {
     public class Program
@@ -8,44 +8,51 @@ namespace PersonalApp.ServiceLayer
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
+
+            // Allow both localhost and live Vercel frontend
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAngular", policy =>
                 {
-                    policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                    policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
                 });
             });
 
-
             builder.Services.AddSwaggerGen();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            // Smart Database Provider: uses PostgreSQL for Neon/Cloud, SQL Server for Localhost
             builder.Services.AddDbContext<PersonalApp.DataAccessLayer.Data.PersonalDashboardDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            {
+                if (!string.IsNullOrEmpty(connectionString) &&
+                   (connectionString.StartsWith("postgres://") || connectionString.StartsWith("postgresql://") || connectionString.Contains("neon.tech")))
+                {
+                    options.UseNpgsql(connectionString);
+                }
+                else
+                {
+                    options.UseSqlServer(connectionString);
+                }
+            });
+
             builder.Services.AddScoped<PersonalApp.DataAccessLayer.Repository>();
             builder.Services.AddScoped<PersonalApp.DataAccessLayer.JobRepository>();
-            //builder.Services.AddScoped<PersonalApp.ServiceLayer.Services.UserService>();
+
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            // Enable Swagger in both Dev and Production so you can test the live API
+            app.MapOpenApi();
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
-
             app.UseCors("AllowAngular");
-
             app.UseAuthorization();
-
-
             app.MapControllers();
 
             app.Run();

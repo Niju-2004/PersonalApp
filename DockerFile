@@ -1,0 +1,21 @@
+# Build Stage
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+
+COPY ["PersonalApp.ServiceLayer/PersonalApp.ServiceLayer.csproj", "PersonalApp.ServiceLayer/"]
+COPY ["PersonalApp.DataAccessLayer/PersonalApp.DataAccessLayer.csproj", "PersonalApp.DataAccessLayer/"]
+RUN dotnet restore "PersonalApp.ServiceLayer/PersonalApp.ServiceLayer.csproj"
+
+COPY . .
+WORKDIR "/src/PersonalApp.ServiceLayer"
+RUN dotnet publish "PersonalApp.ServiceLayer.csproj" -c Release -o /app/publish
+
+# Runtime Stage
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
+WORKDIR /app
+COPY --from=build /app/publish .
+
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
+
+ENTRYPOINT ["dotnet", "PersonalApp.ServiceLayer.dll"]
