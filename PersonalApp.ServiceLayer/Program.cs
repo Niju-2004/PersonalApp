@@ -10,7 +10,7 @@ namespace PersonalApp.ServiceLayer
 
             builder.Services.AddControllers();
 
-            // Allow both localhost and live Vercel frontend
+            // Configure CORS policy to allow requests from any origin (localhost, Vercel, etc.)
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAngular", policy =>
@@ -30,7 +30,7 @@ namespace PersonalApp.ServiceLayer
             builder.Services.AddDbContext<PersonalApp.DataAccessLayer.Data.PersonalDashboardDbContext>(options =>
             {
                 if (!string.IsNullOrEmpty(connectionString) &&
-                   (connectionString.StartsWith("postgres://") || connectionString.StartsWith("postgresql://") || connectionString.Contains("neon.tech")))
+                   (connectionString.StartsWith("Host=") || connectionString.StartsWith("Server=") && connectionString.Contains("neon.tech") || connectionString.StartsWith("postgres://") || connectionString.StartsWith("postgresql://") || connectionString.Contains("neon.tech")))
                 {
                     options.UseNpgsql(connectionString);
                 }
@@ -45,17 +45,19 @@ namespace PersonalApp.ServiceLayer
 
             var app = builder.Build();
 
-            // Enable Swagger in both Dev and Production so you can test the live API
+            // 1. CORS MUST be the very first middleware so all requests (including preflight OPTIONS) receive CORS headers
+            app.UseCors("AllowAngular");
+
+            // 2. Enable Swagger
             app.MapOpenApi();
             app.UseSwagger();
             app.UseSwaggerUI();
 
-            app.UseHttpsRedirection();
-            app.UseCors("AllowAngular");
             app.UseAuthorization();
             app.MapControllers();
 
             app.Run();
         }
     }
+}
 }
