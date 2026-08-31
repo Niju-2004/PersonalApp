@@ -9,7 +9,7 @@ import { ILearningItem, ILearningLog } from '../interfaces/ILearning';
 export class LearningService {
   private localhostWebApi = 'https://localhost:7228/api';
   private deployedWebApi = 'https://personalapp-pd9o.onrender.com/api';
-  private baseWebApi = this.localhostWebApi;
+  private baseWebApi = this.deployedWebApi;
 
   constructor(private http: HttpClient) { }
 
