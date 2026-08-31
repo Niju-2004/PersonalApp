@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using PersonalApp.DataAccessLayer.Entities;
 using PersonalApp.DataAccessLayer.Data;
-using Task = PersonalApp.DataAccessLayer.Entities.Task;
+using PersonalApp.DataAccessLayer.Entities;
+using AppTask = PersonalApp.DataAccessLayer.Entities.Task;
 
 namespace PersonalApp.DataAccessLayer
 {
@@ -23,11 +24,11 @@ namespace PersonalApp.DataAccessLayer
 
         public int userRegistration(User user)
         {
-            // Check if email is already registered
-            var existingUser = _context.Users.FirstOrDefault(u => u.Email.ToLower() == user.Email.ToLower());
-            if (existingUser != null)
+            // Check if email already exists to prevent database constraint violation
+            bool emailExists = _context.Users.Any(u => u.Email.ToLower() == user.Email.ToLower());
+            if (emailExists)
             {
-                return -1; // -1 indicates email already exists
+                return -1; // Specific code indicating duplicate email
             }
 
             if (user.CreatedAt == default)
@@ -80,11 +81,67 @@ namespace PersonalApp.DataAccessLayer
             return alljobs;
         }
 
-        public List<Task> allTasks(int userId)
+        public List<AppTask> allTasks(int userId)
         {
-            var allTasks = _context.Tasks.Where(
-                r => r.UserId == userId).ToList();
+            var allTasks = _context.Tasks
+                .Where(r => r.UserId == userId)
+                .OrderBy(r => r.Status == "Completed")
+                .ThenByDescending(r => r.CreatedAt)
+                .ToList();
             return allTasks;
+        }
+
+        public int AddTask(AppTask task)
+        {
+            if (task.CreatedAt == default)
+            {
+                task.CreatedAt = DateTime.UtcNow;
+            }
+            if (string.IsNullOrWhiteSpace(task.Status))
+            {
+                task.Status = "Pending";
+            }
+            if (string.IsNullOrWhiteSpace(task.Priority))
+            {
+                task.Priority = "Medium";
+            }
+
+            _context.Tasks.Add(task);
+            _context.SaveChanges();
+            return task.TaskId;
+        }
+
+        public bool ToggleTaskStatus(int taskId)
+        {
+            var task = _context.Tasks.Find(taskId);
+            if (task != null)
+            {
+                if (task.Status == "Completed")
+                {
+                    task.Status = "Pending";
+                    task.CompletedAt = null;
+                }
+                else
+                {
+                    task.Status = "Completed";
+                    task.CompletedAt = DateTime.UtcNow;
+                }
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteTask(int taskId)
+        {
+            var task = _context.Tasks.Find(taskId);
+            if (task != null)
+            {
+                _context.Tasks.Remove(task);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -9,7 +9,7 @@
   [![Render](https://img.shields.io/badge/Backend-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://personalapp-pd9o.onrender.com)
 
   <p align="center">
-    <strong>A sleek, modern, full-stack Personal Life Operating System designed to seamlessly manage career opportunities, bank savings buckets, daily productivity, and personal milestones in a unified Red & Violet Glassmorphism UI.</strong>
+    <strong>A sleek, modern, full-stack Personal Life Operating System designed to seamlessly manage career opportunities, bank savings buckets, daily learning calendars, floating to-do checklists, and personal milestones in a unified Red & Violet Glassmorphism UI.</strong>
   </p>
 
   <p align="center">
@@ -25,9 +25,9 @@
 ## 🌟 Key Features & Modules
 
 ### 1. 🏠 Dashboard Overview
-* **Personalized Greeting**: Dynamic welcome banner displaying user identity and real-time live date indicator (`📅 Sat, 29 Aug 2026`).
+* **Personalized Greeting**: Dynamic welcome banner displaying user identity and real-time live date indicator (`📅 Mon, 31 Aug 2026`).
 * **Live Statistics Cards**: Real-time aggregation of **Total Jobs**, **Total Wealth Saved**, **Bank Buckets Linked**, and **Pending Tasks**.
-* **Quick Actions**: 1-click shortcuts to add job opportunities, log bank deposits, or manage tasks.
+* **Quick Actions**: 1-click shortcuts to add job opportunities, log bank deposits, or manage daily routines.
 
 ### 2. 💼 Career & Job Opportunity Tracker (`/layout/jobs`)
 * **Job Application Pipeline**: Track positions, companies, salary ranges, and work environments (Remote / Hybrid / On-site).
@@ -46,13 +46,29 @@
   * **⚡ Quick Deposit Shortcuts**: 1-click deposit logging (`+₹1,000`, `+₹5,000`, `+₹10,000`).
 * **Slide-over Deposit Drawer**: Complete form for logging deposits, target amounts, and notes.
 
-### 4. 👤 Profile & Identity (`/layout/profile`)
+### 4. 📚 Daily Learning & Study Calendar Hub (`/layout/learning`)
+* **Subject Hub**: Create learning topics like **C#**, **Angular**, **Docker**, **SQL**, and **System Design**.
+* **Interactive 7-Day Monthly Calendar Grid**:
+  * Full Sun–Sat month grid with `< Prev Month` and `Next Month >` navigation.
+  * **Date Ticking**: Click any date (e.g., today) to log what you learned (e.g., *"OOPs concepts — Polymorphism"*).
+  * Dates illuminate with a **glowing `✅` checkmark** badge and topic preview.
+  * **🔥 Daily Study Streaks**: Tracks consecutive study days automatically.
+* **Study History Timeline**: Chronological log of all recorded study notes and takeaways beneath the calendar.
+
+### 5. ⚡ Global Floating Daily Checklist Widget (Accessible Everywhere)
+* **Floating Trigger Button**: Stays accessible in the **bottom-right corner** on every single screen (Dashboard, Jobs, Savings, Learning, Profile).
+* **Live Counter Badge**: Displays completed vs. total tasks (e.g., `3/5`).
+* **Morning Quick-Add Bar**: Type tasks and press **`Enter`** to populate your morning checklist in seconds.
+* **1-Click Ticking with Animation**: Toggling tasks triggers an instant strikethrough animation and live progress bar updates ($0\% \rightarrow 100\%$).
+* **Celebration Banner**: Congratulates you when all daily tasks are completed (`🎉 All tasks completed today!`).
+
+### 6. 👤 Profile & Identity (`/layout/profile`)
 * **Glowing Avatar Badge**: Dynamically generated initials with ambient Red & Violet gradient glow.
 * **Identity Details**: Displays verified email, account ID (`#USER-005`), and join date (`Member Since August 2026`).
-* **Personal Life OS Summary**: Real-time snapshot of active career opportunities and cumulative savings.
+* **Personal Life OS Summary**: Real-time snapshot of active career opportunities, total wealth saved, and bank buckets.
 * **Secure Logout**: 1-click session invalidation and token cleanup.
 
-### 5. 🔐 Authentication & Security (`/login`, `/userRegistration`)
+### 7. 🔐 Authentication & Security (`/login`, `/userRegistration`)
 * **Secure User Registration**: Duplicate email validation prevents database conflicts and provides instant feedback banners.
 * **Interactive Password Toggles**: Show/hide password visibility eye toggle (`👁️ / 🙈`) for password and confirm-password fields.
 * **SSR-Safe Route Guard (`authGuard`)**: Client hydration and platform-checked route protection preventing unauthorized access to internal modules.
@@ -66,6 +82,7 @@ PersonalApp
 ├── 🌐 Presentation Layer (Angular 19+ / TypeScript / CSS3)
 │   ├── Standalone Components, Reactive Signals & RxJS Services
 │   ├── Responsive Mobile Topbar & Native Bottom Navigation Bar
+│   ├── Global Floating Daily Checklist Widget
 │   └── Red & Violet Gradient Theme with Glassmorphism
 │
 ├── ⚙️ Service Layer (ASP.NET Core 10 Web API)
@@ -77,7 +94,7 @@ PersonalApp
     ├── Dual Database Support:
     │   ├── Cloud: PostgreSQL (Neon.tech Serverless)
     │   └── Local: Microsoft SQL Server
-    └── Repository Pattern (UserRepository, JobRepository, SavingsRepository)
+    └── Repository Pattern (UserRepository, JobRepository, SavingsRepository, LearningRepository)
 ```
 
 ### 💻 Technologies Used:
@@ -132,6 +149,7 @@ cd PersonalApp
 
 2. Run the database table creation scripts located in:
    * [`PersonalApp.DataAccessLayer/SQL/SavingsTable.sql`](PersonalApp.DataAccessLayer/SQL/SavingsTable.sql)
+   * [`PersonalApp.DataAccessLayer/SQL/LearningLogsTable.sql`](PersonalApp.DataAccessLayer/SQL/LearningLogsTable.sql)
 
 3. Build and run the Web API:
 ```bash

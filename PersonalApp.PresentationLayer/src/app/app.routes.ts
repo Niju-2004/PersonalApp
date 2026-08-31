@@ -8,6 +8,7 @@ import { authGuard } from './guard/auth-guard';
 import { Savings } from './savings/savings';
 import { Profile } from './profile/profile';
 import { Tasks } from './tasks/tasks';
+import { Learning } from './learning/learning';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -22,6 +23,7 @@ export const routes: Routes = [
       { path: 'dashboard', component: Dashboard },
       { path: 'jobs', component: Jobs },
       { path: 'savings', component: Savings },
+      { path: 'learning', component: Learning },
       { path: 'profile', component: Profile },
       { path: 'tasks', component: Tasks }
     ]
@@ -30,6 +32,7 @@ export const routes: Routes = [
   { path: 'dashboard', redirectTo: 'layout/dashboard', pathMatch: 'full' },
   { path: 'jobs', redirectTo: 'layout/jobs', pathMatch: 'full' },
   { path: 'savings', redirectTo: 'layout/savings', pathMatch: 'full' },
+  { path: 'learning', redirectTo: 'layout/learning', pathMatch: 'full' },
   { path: 'profile', redirectTo: 'layout/profile', pathMatch: 'full' },
   { path: 'tasks', redirectTo: 'layout/tasks', pathMatch: 'full' },
   

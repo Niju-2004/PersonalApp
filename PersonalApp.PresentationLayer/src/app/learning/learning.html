@@ -1,0 +1,296 @@
+<div class="learning-page">
+
+  <!-- ==========================================================================
+       VIEW A: SUBJECTS HUB (Level 1)
+       ========================================================================== -->
+  <ng-container *ngIf="!selectedSubject">
+
+    <!-- Header -->
+    <header class="page-header">
+      <div class="header-text">
+        <div class="brand-pill">
+          <span>📚 Skill & Habit Tracker</span>
+        </div>
+        <h1>Daily Learning & Study Hub</h1>
+        <p>Track your daily learning progress, study streaks, and date check-ins on interactive calendars.</p>
+      </div>
+
+      <button class="btn-add-subject" (click)="openAddSubject()">
+        <span>+ Add New Subject</span>
+      </button>
+    </header>
+
+    <!-- Subjects Grid -->
+    <main class="subjects-grid" *ngIf="subjects.length > 0">
+      <article class="subject-card" *ngFor="let sub of subjects" (click)="openSubjectCalendar(sub)">
+        
+        <div class="subject-card-top">
+          <div class="subject-badge">
+            <span class="sub-icon">{{ getSubjectIcon(sub.name) }}</span>
+            <div>
+              <h2 class="sub-name">{{ sub.name }}</h2>
+              <span class="sub-cat">{{ sub.category || 'General' }}</span>
+            </div>
+          </div>
+
+          <button class="btn-del-sub" (click)="deleteSubject(sub, $event)" title="Delete subject">🗑️</button>
+        </div>
+
+        <div class="subject-stats-bar">
+          <div class="stat-item">
+            <span class="stat-lbl">Total Days Studied</span>
+            <strong class="stat-val">{{ sub.totalDaysLogged || 0 }} Days</strong>
+          </div>
+
+          <div class="stat-divider"></div>
+
+          <div class="stat-item">
+            <span class="stat-lbl">Current Streak</span>
+            <strong class="stat-val streak-val">🔥 {{ sub.currentStreak || 0 }} Days</strong>
+          </div>
+        </div>
+
+        <div class="subject-card-footer">
+          <span class="footer-hint">Click to open study calendar</span>
+          <span class="footer-arrow">→</span>
+        </div>
+
+      </article>
+    </main>
+
+    <!-- Empty State -->
+    <section class="empty-state" *ngIf="!isLoading && subjects.length === 0">
+      <div class="empty-icon">📚</div>
+      <h2>No Learning Subjects Yet</h2>
+      <p>Create a subject like <strong>C#</strong>, <strong>Angular</strong>, or <strong>Docker</strong> and start ticking your daily study dates!</p>
+      <button class="btn-add-subject" (click)="openAddSubject()">+ Create Your First Subject</button>
+    </section>
+
+  </ng-container>
+
+
+  <!-- ==========================================================================
+       VIEW B: INTERACTIVE CALENDAR & DAILY LOGS (Level 2)
+       ========================================================================== -->
+  <ng-container *ngIf="selectedSubject">
+
+    <!-- Calendar View Top Bar -->
+    <header class="calendar-view-header">
+      <button class="back-btn" (click)="closeCalendar()">
+        ← Back to All Subjects
+      </button>
+
+      <div class="subject-header-info">
+        <div class="sub-title-row">
+          <span class="sub-lg-icon">{{ getSubjectIcon(selectedSubject.name) }}</span>
+          <div>
+            <h1>{{ selectedSubject.name }} Study Calendar</h1>
+            <span class="sub-tag">🎯 {{ selectedSubject.category || 'Skill' }}</span>
+          </div>
+        </div>
+
+        <div class="subject-streak-badge">
+          <span class="streak-icon">🔥</span>
+          <div class="streak-text">
+            <strong>{{ currentStreak }} Days Streak</strong>
+            <span>{{ totalDaysLogged }} total days studied</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Calendar Navigation & Controls -->
+    <section class="calendar-controls-bar">
+      <div class="month-nav">
+        <button class="nav-arrow-btn" (click)="prevMonth()" title="Previous Month">‹</button>
+        <h2 class="current-month-label">{{ monthYearTitle }}</h2>
+        <button class="nav-arrow-btn" (click)="nextMonth()" title="Next Month">›</button>
+      </div>
+
+      <div class="calendar-actions">
+        <button class="btn-today" (click)="goToToday()">📅 Jump to Today</button>
+      </div>
+    </section>
+
+    <!-- Calendar 7-Day Grid -->
+    <section class="calendar-container">
+      
+      <!-- Weekday Headers -->
+      <div class="calendar-weekdays-row">
+        <div class="weekday-cell" *ngFor="let dayName of weekdays">
+          {{ dayName }}
+        </div>
+      </div>
+
+      <!-- Calendar Days Grid -->
+      <div class="calendar-days-grid">
+        <div class="calendar-day-cell"
+             *ngFor="let day of calendarDays"
+             [class.other-month]="!day.isCurrentMonth"
+             [class.today]="day.isToday"
+             [class.ticked]="day.isTicked"
+             (click)="onDateClick(day)">
+          
+          <div class="day-header">
+            <span class="day-number">{{ day.dayNumber }}</span>
+            <span class="today-dot" *ngIf="day.isToday">Today</span>
+          </div>
+
+          <!-- Ticked Date Badge & Topic Snippet -->
+          <div class="day-tick-badge" *ngIf="day.isTicked">
+            <span class="check-icon">✅</span>
+            <span class="topic-snippet" *ngIf="day.log">{{ day.log.topicCovered }}</span>
+          </div>
+
+          <!-- Unticked Placeholder on Hover -->
+          <div class="day-add-hint" *ngIf="!day.isTicked">
+            <span>+ Log</span>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- Study History Timeline (Below Calendar) -->
+    <section class="study-history-section">
+      <div class="history-header">
+        <h2>📜 Study History & Notes ({{ subjectLogs.length }} Records)</h2>
+        <p>All recorded study sessions for <strong>{{ selectedSubject.name }}</strong></p>
+      </div>
+
+      <div class="no-history-msg" *ngIf="subjectLogs.length === 0">
+        <p>No study logs yet. Click any date on the calendar above to tick and log what you studied!</p>
+      </div>
+
+      <div class="history-list" *ngIf="subjectLogs.length > 0">
+        <div class="history-card" *ngFor="let log of subjectLogs">
+          <div class="history-card-left">
+            <span class="check-circle">✅</span>
+            <div>
+              <span class="log-date">{{ log.learnedDate | date:'fullDate' }}</span>
+              <h3 class="log-topic">{{ log.topicCovered }}</h3>
+              <p class="log-notes" *ngIf="log.notes">{{ log.notes }}</p>
+            </div>
+          </div>
+
+          <button class="btn-del-log" (click)="deleteLogFromHistory(log.logId)" title="Delete entry">🗑️</button>
+        </div>
+      </div>
+    </section>
+
+  </ng-container>
+
+
+  <!-- ==========================================================================
+       MODAL 1: CHECK-IN / DATE TICKING DIALOG
+       ========================================================================== -->
+  <div class="modal-backdrop" *ngIf="isCheckinModalOpen" (click)="closeCheckinModal()"></div>
+
+  <div class="checkin-modal" *ngIf="isCheckinModalOpen && selectedDay">
+    <header class="modal-header">
+      <div class="modal-title-box">
+        <span class="modal-icon">📅</span>
+        <div>
+          <h2>Daily Study Check-in</h2>
+          <span class="selected-date-text">{{ selectedDay.dateString | date:'fullDate' }}</span>
+        </div>
+      </div>
+      <button class="modal-close-btn" (click)="closeCheckinModal()">✕</button>
+    </header>
+
+    <div class="modal-body">
+      
+      <div class="alert-error" *ngIf="errorMessage">
+        <span>⚠️ {{ errorMessage }}</span>
+      </div>
+
+      <form (ngSubmit)="saveDateCheckin()">
+        
+        <div class="form-group">
+          <label for="topic">What did you learn on this day? *</label>
+          <input type="text"
+                 id="topic"
+                 [(ngModel)]="formTopicCovered"
+                 name="topicCovered"
+                 placeholder="e.g. OOPs concepts — Polymorphism & Inheritance"
+                 required
+                 autofocus>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Study Notes / Takeaways (Optional)</label>
+          <textarea id="notes"
+                    [(ngModel)]="formNotes"
+                    name="notes"
+                    rows="3"
+                    placeholder="e.g. Practiced overriding, abstract classes, and virtual methods in Visual Studio."></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-untick" *ngIf="selectedDay.isTicked" (click)="untickDate()">
+            <span>❌ Un-tick Date</span>
+          </button>
+
+          <div class="right-actions">
+            <button type="button" class="btn-cancel" (click)="closeCheckinModal()">Cancel</button>
+            <button type="submit" class="btn-save-checkin">
+              <span>{{ selectedDay.isTicked ? 'Update Study Log' : '✅ Mark as Learned (Tick Date)' }}</span>
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ==========================================================================
+       MODAL 2: ADD NEW SUBJECT MODAL
+       ========================================================================== -->
+  <div class="modal-backdrop" *ngIf="isAddSubjectOpen" (click)="closeAddSubject()"></div>
+
+  <div class="add-subject-modal" *ngIf="isAddSubjectOpen">
+    <header class="modal-header">
+      <h2>+ Add Learning Subject</h2>
+      <button class="modal-close-btn" (click)="closeAddSubject()">✕</button>
+    </header>
+
+    <div class="modal-body">
+      <div class="alert-error" *ngIf="errorMessage">
+        <span>⚠️ {{ errorMessage }}</span>
+      </div>
+
+      <form (ngSubmit)="saveNewSubject()">
+        <div class="form-group">
+          <label for="subName">Subject / Skill Name *</label>
+          <input type="text"
+                 id="subName"
+                 [(ngModel)]="newSubjectName"
+                 name="subjectName"
+                 placeholder="e.g. C#, Angular, Docker, System Design"
+                 required>
+        </div>
+
+        <div class="form-group">
+          <label for="subCategory">Category</label>
+          <input type="text"
+                 id="subCategory"
+                 [(ngModel)]="newSubjectCategory"
+                 name="subjectCategory"
+                 placeholder="e.g. Programming, Cloud, Architecture">
+        </div>
+
+        <div class="modal-actions right-only">
+          <button type="button" class="btn-cancel" (click)="closeAddSubject()">Cancel</button>
+          <button type="submit" class="btn-save-checkin">
+            <span>Create Subject</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+

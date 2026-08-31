@@ -46,6 +46,10 @@ public partial class User
 
     [InverseProperty("User")]
     [JsonIgnore]
+    public virtual ICollection<LearningLog> LearningLogs { get; set; } = new List<LearningLog>();
+
+    [InverseProperty("User")]
+    [JsonIgnore]
     public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
 
     [InverseProperty("User")]

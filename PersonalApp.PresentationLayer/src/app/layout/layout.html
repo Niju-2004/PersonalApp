@@ -60,11 +60,11 @@
         <span>Savings</span>
       </a>
 
-      <a routerLink="/layout/tasks"
+      <a routerLink="/layout/learning"
          routerLinkActive="active"
          class="menu-item">
-        <span class="menu-icon">✅</span>
-        <span>Tasks</span>
+        <span class="menu-icon">📚</span>
+        <span>Learning</span>
       </a>
 
     </nav>
@@ -91,7 +91,7 @@
   <nav class="mobile-bottom-nav">
     <a routerLink="/layout/dashboard" routerLinkActive="active" class="bottom-nav-item">
       <span class="nav-icon">🏠</span>
-      <span class="nav-label">Dashboard</span>
+      <span class="nav-label">Home</span>
     </a>
     <a routerLink="/layout/jobs" routerLinkActive="active" class="bottom-nav-item">
       <span class="nav-icon">💼</span>
@@ -101,9 +101,9 @@
       <span class="nav-icon">💰</span>
       <span class="nav-label">Savings</span>
     </a>
-    <a routerLink="/layout/tasks" routerLinkActive="active" class="bottom-nav-item">
-      <span class="nav-icon">✅</span>
-      <span class="nav-label">Tasks</span>
+    <a routerLink="/layout/learning" routerLinkActive="active" class="bottom-nav-item">
+      <span class="nav-icon">📚</span>
+      <span class="nav-label">Learn</span>
     </a>
     <a routerLink="/layout/profile" routerLinkActive="active" class="bottom-nav-item">
       <span class="nav-icon">👤</span>
@@ -115,6 +115,104 @@
   <main class="main-content">
     <router-outlet></router-outlet>
   </main>
+
+
+  <!-- ==========================================================================
+       GLOBAL FLOATING DAILY CHECKLIST WIDGET (Option 2 - Accessible From Everywhere)
+       ========================================================================== -->
+
+  <!-- Floating Trigger Button (Bottom-Right) -->
+  <button class="floating-checklist-btn"
+          (click)="toggleChecklist()"
+          [class.active]="isChecklistOpen"
+          title="Daily To-Do Checklist">
+    <div class="float-btn-content">
+      <span class="float-icon">✅</span>
+      <span class="float-badge" *ngIf="totalTasksCount > 0">{{ completedTasksCount }}/{{ totalTasksCount }}</span>
+    </div>
+  </button>
+
+  <!-- Floating Checklist Popup Panel -->
+  <div class="floating-checklist-card" *ngIf="isChecklistOpen">
+    
+    <!-- Header -->
+    <header class="checklist-header">
+      <div class="checklist-header-title">
+        <span class="header-icon">⚡</span>
+        <div>
+          <h3>Daily To-Do Checklist</h3>
+          <span class="today-text">{{ todayDate | date:'EEE, d MMM y' }}</span>
+        </div>
+      </div>
+      <button class="btn-close-checklist" (click)="closeChecklist()" title="Close checklist">✕</button>
+    </header>
+
+    <!-- Progress Meter -->
+    <div class="checklist-progress-box">
+      <div class="progress-info">
+        <span>Today's Progress:</span>
+        <strong>{{ completedTasksCount }} of {{ totalTasksCount }} Done ({{ progressPercentage }}%)</strong>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" [style.width.%]="progressPercentage"></div>
+      </div>
+    </div>
+
+    <!-- Morning Quick Add Input Bar -->
+    <form class="checklist-add-bar" (ngSubmit)="quickAddMorningTask()">
+      <input type="text"
+             [(ngModel)]="newDailyTaskTitle"
+             name="taskTitle"
+             placeholder="📝 Add task for today..."
+             autocomplete="off"
+             required>
+      <button type="submit" class="btn-add-task">+ Add</button>
+    </form>
+
+    <!-- Scrollable Task List -->
+    <div class="checklist-tasks-body">
+      
+      <!-- Empty State -->
+      <div class="no-tasks-hint" *ngIf="dailyTasks.length === 0 && !isLoadingTasks">
+        <p>🌅 Good morning! Add your daily goals and tick them off one by one.</p>
+      </div>
+
+      <!-- Task Items -->
+      <div class="task-item-row"
+           *ngFor="let task of dailyTasks"
+           [class.completed]="task.status === 'Completed'"
+           (click)="toggleTaskCheck(task, $event)">
+        
+        <!-- Custom Checkbox -->
+        <div class="task-checkbox" [class.checked]="task.status === 'Completed'">
+          <span *ngIf="task.status === 'Completed'">✓</span>
+        </div>
+
+        <!-- Task Title -->
+        <span class="task-title-text">{{ task.title }}</span>
+
+        <!-- Delete Button -->
+        <button class="btn-delete-task"
+                (click)="deleteDailyTask(task.taskId, $event)"
+                title="Delete task">
+          🗑️
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- Footer Summary -->
+    <footer class="checklist-footer" *ngIf="dailyTasks.length > 0">
+      <span class="footer-status-text" *ngIf="progressPercentage === 100">
+        🎉 All tasks completed today! Awesome!
+      </span>
+      <span class="footer-status-text" *ngIf="progressPercentage < 100">
+        {{ totalTasksCount - completedTasksCount }} tasks remaining
+      </span>
+    </footer>
+
+  </div>
 
 </div>
 

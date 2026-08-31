@@ -22,6 +22,8 @@ public partial class PersonalDashboardDbContext : DbContext
 
     public virtual DbSet<LearningItem> LearningItems { get; set; }
 
+    public virtual DbSet<LearningLog> LearningLogs { get; set; }
+
     public virtual DbSet<PersonalApp.DataAccessLayer.Entities.Task> Tasks { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -84,8 +86,25 @@ public partial class PersonalDashboardDbContext : DbContext
             entity.Property(e => e.Status).HasDefaultValue("In Progress");
 
             entity.HasOne(d => d.User).WithMany(p => p.LearningItems)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_LearningItems_Users");
+        });
+
+        modelBuilder.Entity<LearningLog>(entity =>
+        {
+            entity.HasKey(e => e.LogId);
+
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.LearningItem).WithMany(p => p.LearningLogs)
+                .HasForeignKey(d => d.LearningItemId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_LearningLogs_LearningItems");
+
+            entity.HasOne(d => d.User).WithMany(p => p.LearningLogs)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_LearningLogs_Users");
         });
 
         modelBuilder.Entity<PersonalApp.DataAccessLayer.Entities.Task>(entity =>

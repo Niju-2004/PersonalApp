@@ -13,7 +13,7 @@ import { ITask } from '../interfaces/ITask';
 
     private localhostWebApi = 'https://localhost:7228/api';
     private deployedWebApi = 'https://personalapp-pd9o.onrender.com/api';
-    private baseWebApi = this.deployedWebApi; 
+    private baseWebApi = this.localhostWebApi; 
 
     constructor(private http: HttpClient) {
 
