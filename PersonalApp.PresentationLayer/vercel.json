@@ -2,7 +2,7 @@
   "outputDirectory": "dist/PersonalApp.PresentationLayer/browser",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!.*\\..*).*)",
       "destination": "/index.html"
     }
   ]
