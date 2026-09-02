@@ -15,6 +15,7 @@ export class Layout implements OnInit {
 
   todayDate: Date = new Date();
   userId: number = 0;
+  isAdminUser: boolean = false;
 
   // Global Floating Checklist State
   isChecklistOpen: boolean = false;
@@ -37,6 +38,7 @@ export class Layout implements OnInit {
     if (userJson) {
       const user = JSON.parse(userJson);
       this.userId = user.userId;
+      this.isAdminUser = user.email === 'admin';
       this.loadDailyTasks();
     }
   }

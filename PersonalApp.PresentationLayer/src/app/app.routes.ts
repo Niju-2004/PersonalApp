@@ -9,6 +9,7 @@ import { Savings } from './savings/savings';
 import { Profile } from './profile/profile';
 import { Tasks } from './tasks/tasks';
 import { Learning } from './learning/learning';
+import { Admin } from './admin/admin';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -24,6 +25,7 @@ export const routes: Routes = [
       { path: 'jobs', component: Jobs },
       { path: 'savings', component: Savings },
       { path: 'learning', component: Learning },
+      { path: 'admin', component: Admin },
       { path: 'profile', component: Profile },
       { path: 'tasks', component: Tasks }
     ]
@@ -33,6 +35,7 @@ export const routes: Routes = [
   { path: 'jobs', redirectTo: 'layout/jobs', pathMatch: 'full' },
   { path: 'savings', redirectTo: 'layout/savings', pathMatch: 'full' },
   { path: 'learning', redirectTo: 'layout/learning', pathMatch: 'full' },
+  { path: 'admin', redirectTo: 'layout/admin', pathMatch: 'full' },
   { path: 'profile', redirectTo: 'layout/profile', pathMatch: 'full' },
   { path: 'tasks', redirectTo: 'layout/tasks', pathMatch: 'full' },
   

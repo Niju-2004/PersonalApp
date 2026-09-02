@@ -67,6 +67,15 @@
         <span>Learning</span>
       </a>
 
+      <!-- MASTER ADMIN ONLY LINK -->
+      <a *ngIf="isAdminUser"
+         routerLink="/layout/admin"
+         routerLinkActive="active"
+         class="menu-item admin-menu-item">
+        <span class="menu-icon">🛡️</span>
+        <span>Admin Portal</span>
+      </a>
+
     </nav>
 
     <div class="sidebar-bottom">
@@ -104,6 +113,10 @@
     <a routerLink="/layout/learning" routerLinkActive="active" class="bottom-nav-item">
       <span class="nav-icon">📚</span>
       <span class="nav-label">Learn</span>
+    </a>
+    <a *ngIf="isAdminUser" routerLink="/layout/admin" routerLinkActive="active" class="bottom-nav-item">
+      <span class="nav-icon">🛡️</span>
+      <span class="nav-label">Admin</span>
     </a>
     <a routerLink="/layout/profile" routerLinkActive="active" class="bottom-nav-item">
       <span class="nav-icon">👤</span>

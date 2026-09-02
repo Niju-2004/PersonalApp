@@ -1,0 +1,269 @@
+<div class="admin-page">
+
+  <!-- HERO HEADER -->
+  <header class="admin-header">
+    <div class="header-left">
+      <div class="admin-badge-pill">
+        <span class="shield-icon">🛡️</span>
+        <span>MASTER ADMIN CONTROL CENTER</span>
+      </div>
+      <h1>System Overview & User Management</h1>
+      <p>Monitor platform health, inspect registered user metrics, and manage system accounts.</p>
+    </div>
+
+    <div class="admin-profile-pill">
+      <div class="admin-avatar">👑</div>
+      <div class="admin-meta">
+        <strong>Master Admin</strong>
+        <span>admin@personalapp.com</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- NOTIFICATIONS / ALERTS -->
+  <div class="alert alert-success" *ngIf="statusMessage">
+    <span>✅ {{ statusMessage }}</span>
+  </div>
+  <div class="alert alert-error" *ngIf="errorMessage">
+    <span>⚠️ {{ errorMessage }}</span>
+  </div>
+
+  <!-- ==========================================================================
+       1. PLATFORM ANALYTICS CARDS (REAL-TIME AGGREGATES)
+       ========================================================================== -->
+  <section class="analytics-grid">
+    
+    <!-- Total Users -->
+    <div class="stat-card users-card">
+      <div class="stat-top">
+        <div class="stat-icon-badge">👥</div>
+        <span class="stat-badge-sub">Registered</span>
+      </div>
+      <strong class="stat-number">{{ analytics.totalUsers }}</strong>
+      <span class="stat-title">Total Users</span>
+      <span class="stat-desc">Active platform accounts</span>
+    </div>
+
+    <!-- Total Jobs -->
+    <div class="stat-card jobs-card">
+      <div class="stat-top">
+        <div class="stat-icon-badge">💼</div>
+        <span class="stat-badge-sub">System-wide</span>
+      </div>
+      <strong class="stat-number">{{ analytics.totalJobs }}</strong>
+      <span class="stat-title">Total Jobs Tracked</span>
+      <span class="stat-desc">Applications across all users</span>
+    </div>
+
+    <!-- Total Savings -->
+    <div class="stat-card savings-card">
+      <div class="stat-top">
+        <div class="stat-icon-badge">💰</div>
+        <span class="stat-badge-sub">Accumulated</span>
+      </div>
+      <strong class="stat-number">₹{{ analytics.totalSavingsAmount | number:'1.0-0' }}</strong>
+      <span class="stat-title">Total Platform Wealth</span>
+      <span class="stat-desc">Logged in savings buckets</span>
+    </div>
+
+    <!-- Total Study Logs -->
+    <div class="stat-card learning-card">
+      <div class="stat-top">
+        <div class="stat-icon-badge">📚</div>
+        <span class="stat-badge-sub">Learning</span>
+      </div>
+      <strong class="stat-number">{{ analytics.totalLearningLogs }}</strong>
+      <span class="stat-title">Daily Study Logs</span>
+      <span class="stat-desc">Across {{ analytics.totalSubjects }} learning subjects</span>
+    </div>
+
+  </section>
+
+
+  <!-- ==========================================================================
+       2. USER DIRECTORY & MANAGEMENT TABLE
+       ========================================================================== -->
+  <section class="users-section">
+    
+    <div class="users-section-header">
+      <div class="title-with-count">
+        <h2>👥 User Directory & Activity Inspector</h2>
+        <span class="count-pill">{{ filteredUsers.length }} Accounts</span>
+      </div>
+
+      <!-- Search Filter -->
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text"
+               [(ngModel)]="searchQuery"
+               (input)="filterUsers()"
+               placeholder="Search by name, email, or role...">
+      </div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="table-responsive">
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Jobs Tracked</th>
+            <th>Total Savings</th>
+            <th>Daily Tasks</th>
+            <th>Study Logs</th>
+            <th>Joined On</th>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of filteredUsers" (click)="inspectUser(u)">
+            
+            <!-- User Name + Avatar -->
+            <td>
+              <div class="user-cell">
+                <div class="user-initials" [class.admin-initials]="u.isAdmin">
+                  {{ getUserInitials(u.name) }}
+                </div>
+                <div>
+                  <strong class="user-name">{{ u.name }}</strong>
+                  <span class="user-id-sub">#USER-{{ u.userId }}</span>
+                </div>
+              </div>
+            </td>
+
+            <!-- Email -->
+            <td class="email-cell">{{ u.email }}</td>
+
+            <!-- Role Badge -->
+            <td>
+              <span class="role-badge" [class.role-admin]="u.isAdmin" [class.role-user]="!u.isAdmin">
+                {{ u.isAdmin ? '👑 Master Admin' : '👤 User' }}
+              </span>
+            </td>
+
+            <!-- Jobs Count -->
+            <td>
+              <span class="metric-pill">💼 {{ u.jobsCount }}</span>
+            </td>
+
+            <!-- Total Savings -->
+            <td>
+              <strong class="savings-text">₹{{ u.totalSavings | number:'1.0-0' }}</strong>
+            </td>
+
+            <!-- Daily Tasks -->
+            <td>
+              <span class="metric-pill">✅ {{ u.completedTasksCount }}/{{ u.tasksCount }}</span>
+            </td>
+
+            <!-- Study Logs -->
+            <td>
+              <span class="metric-pill">📚 {{ u.learningLogsCount }}</span>
+            </td>
+
+            <!-- Join Date -->
+            <td class="date-cell">
+              {{ u.createdAt | date:'mediumDate' }}
+            </td>
+
+            <!-- Actions -->
+            <td class="text-right" (click)="$event.stopPropagation()">
+              <button class="btn-inspect-action" (click)="inspectUser(u)" title="View user details">
+                👁️ View
+              </button>
+              <button class="btn-delete-user"
+                      *ngIf="!u.isAdmin"
+                      (click)="deleteUser(u, $event)"
+                      title="Delete user account">
+                🗑️
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div class="no-users-box" *ngIf="filteredUsers.length === 0 && !isLoading">
+      <p>No users found matching "{{ searchQuery }}".</p>
+    </div>
+
+  </section>
+
+
+  <!-- ==========================================================================
+       3. USER ACTIVITY INSPECTOR MODAL
+       ========================================================================== -->
+  <div class="modal-backdrop" *ngIf="isUserModalOpen" (click)="closeUserModal()"></div>
+
+  <div class="user-modal" *ngIf="isUserModalOpen && selectedUser">
+    
+    <header class="user-modal-header">
+      <div class="modal-user-info">
+        <div class="user-initials large" [class.admin-initials]="selectedUser.isAdmin">
+          {{ getUserInitials(selectedUser.name) }}
+        </div>
+        <div>
+          <h2>{{ selectedUser.name }}</h2>
+          <span class="modal-email">{{ selectedUser.email }}</span>
+          <span class="role-badge" [class.role-admin]="selectedUser.isAdmin" [class.role-user]="!selectedUser.isAdmin">
+            {{ selectedUser.isAdmin ? '👑 Master Admin' : '👤 Standard User' }}
+          </span>
+        </div>
+      </div>
+      <button class="modal-close" (click)="closeUserModal()">✕</button>
+    </header>
+
+    <div class="user-modal-body">
+      <h3>📊 User Activity Snapshot</h3>
+
+      <div class="modal-stats-grid">
+        <div class="modal-stat-box">
+          <span class="box-lbl">💼 Career Applications</span>
+          <strong class="box-val">{{ selectedUser.jobsCount }} Jobs</strong>
+        </div>
+
+        <div class="modal-stat-box">
+          <span class="box-lbl">💰 Total Wealth Saved</span>
+          <strong class="box-val">₹{{ selectedUser.totalSavings | number:'1.0-0' }}</strong>
+        </div>
+
+        <div class="modal-stat-box">
+          <span class="box-lbl">📚 Study Logs Recorded</span>
+          <strong class="box-val">{{ selectedUser.learningLogsCount }} Days</strong>
+        </div>
+
+        <div class="modal-stat-box">
+          <span class="box-lbl">✅ Daily Tasks Completed</span>
+          <strong class="box-val">{{ selectedUser.completedTasksCount }} of {{ selectedUser.tasksCount }}</strong>
+        </div>
+      </div>
+
+      <div class="user-meta-details">
+        <div class="meta-row">
+          <span>Account ID:</span>
+          <strong>#USER-{{ selectedUser.userId }}</strong>
+        </div>
+        <div class="meta-row">
+          <span>Registration Date:</span>
+          <strong>{{ selectedUser.createdAt | date:'fullDate' }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <footer class="user-modal-footer">
+      <button class="btn-cancel" (click)="closeUserModal()">Close</button>
+      <button class="btn-danger"
+              *ngIf="!selectedUser.isAdmin"
+              (click)="deleteUser(selectedUser, $event)">
+        🗑️ Delete User Account
+      </button>
+    </footer>
+
+  </div>
+
+</div>
+
