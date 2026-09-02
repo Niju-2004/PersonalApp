@@ -31,6 +31,16 @@ namespace PersonalApp.DataAccessLayer
                 item.Status = "In Progress";
             }
 
+            if (item.StartDate.HasValue && item.StartDate.Value.Kind == DateTimeKind.Unspecified)
+            {
+                item.StartDate = DateTime.SpecifyKind(item.StartDate.Value, DateTimeKind.Utc);
+            }
+
+            if (item.TargetDate.HasValue && item.TargetDate.Value.Kind == DateTimeKind.Unspecified)
+            {
+                item.TargetDate = DateTime.SpecifyKind(item.TargetDate.Value, DateTimeKind.Utc);
+            }
+
             _context.LearningItems.Add(item);
             _context.SaveChanges();
             return item.LearningItemId;
@@ -66,15 +76,29 @@ namespace PersonalApp.DataAccessLayer
 
         public int SaveOrUpdateLog(LearningLog log)
         {
+            // Ensure UTC DateTimeKind for PostgreSQL (Npgsql)
             if (log.CreatedAt == default)
             {
                 log.CreatedAt = DateTime.UtcNow;
             }
+            else if (log.CreatedAt.Kind == DateTimeKind.Unspecified)
+            {
+                log.CreatedAt = DateTime.SpecifyKind(log.CreatedAt, DateTimeKind.Utc);
+            }
+
+            if (log.LearnedDate.Kind == DateTimeKind.Unspecified)
+            {
+                log.LearnedDate = DateTime.SpecifyKind(log.LearnedDate, DateTimeKind.Utc);
+            }
+
+            var checkDate = log.LearnedDate.Date;
 
             // Check if log for this date and subject already exists
             var existing = _context.LearningLogs.FirstOrDefault(l =>
                 l.LearningItemId == log.LearningItemId &&
-                l.LearnedDate.Date == log.LearnedDate.Date
+                l.LearnedDate.Year == checkDate.Year &&
+                l.LearnedDate.Month == checkDate.Month &&
+                l.LearnedDate.Day == checkDate.Day
             );
 
             if (existing != null)
@@ -106,9 +130,13 @@ namespace PersonalApp.DataAccessLayer
 
         public bool UntickDate(int learningItemId, DateTime date)
         {
+            var checkDate = date.Date;
+
             var existing = _context.LearningLogs.FirstOrDefault(l =>
                 l.LearningItemId == learningItemId &&
-                l.LearnedDate.Date == date.Date
+                l.LearnedDate.Year == checkDate.Year &&
+                l.LearnedDate.Month == checkDate.Month &&
+                l.LearnedDate.Day == checkDate.Day
             );
 
             if (existing != null)
