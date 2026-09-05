@@ -33,13 +33,15 @@ export class Dashboard implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      this.user = JSON.parse(storedUser);
-      this.name = this.user!.name;
-      this.userId = this.user!.userId;
-      this.email = this.user!.email;
-      this.createdAt = this.user!.createdAt;
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      const storedUser = sessionStorage.getItem("user");
+      if (storedUser) {
+        this.user = JSON.parse(storedUser);
+        this.name = this.user!.name;
+        this.userId = this.user!.userId;
+        this.email = this.user!.email;
+        this.createdAt = this.user!.createdAt;
+      }
     }
 
     if (!this.userId) return;

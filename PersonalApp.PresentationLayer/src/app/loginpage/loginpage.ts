@@ -44,7 +44,9 @@ export class Loginpage implements OnInit {
         if (r === 1) {
           this.userService.userInformation(this.email, this.password).subscribe({
             next: (user: IUser) => {
-              localStorage.setItem('user', JSON.stringify(user));
+              if (typeof window !== 'undefined' && window.sessionStorage) {
+                sessionStorage.setItem('user', JSON.stringify(user));
+              }
               this.route.navigate(['/layout/dashboard']);
             },
             error: (err) => {

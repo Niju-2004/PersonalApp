@@ -46,10 +46,12 @@ export class Admin implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const userJson = localStorage.getItem('user');
-    if (userJson) {
-      this.currentUser = JSON.parse(userJson);
-      this.isAdmin = this.currentUser.email === 'admin';
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      const userJson = sessionStorage.getItem('user');
+      if (userJson) {
+        this.currentUser = JSON.parse(userJson);
+        this.isAdmin = this.currentUser.email === 'admin';
+      }
     }
 
     // Protect Admin Page: Only 'admin' account can view

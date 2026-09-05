@@ -17,8 +17,8 @@ export class Landing implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      const userJson = localStorage.getItem('user');
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      const userJson = sessionStorage.getItem('user');
       if (userJson) {
         try {
           const user = JSON.parse(userJson);

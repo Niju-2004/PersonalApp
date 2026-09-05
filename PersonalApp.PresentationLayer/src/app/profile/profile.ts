@@ -35,15 +35,17 @@ export class Profile implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const userJson = localStorage.getItem('user');
-    if (userJson) {
-      this.user = JSON.parse(userJson);
-      this.userId = this.user!.userId;
-      this.name = this.user!.name || 'User';
-      this.email = this.user!.email || '';
-      this.createdAt = this.user!.createdAt || new Date().toISOString();
-      this.generateInitials();
-      this.loadUserStats();
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      const userJson = sessionStorage.getItem('user');
+      if (userJson) {
+        this.user = JSON.parse(userJson);
+        this.userId = this.user!.userId;
+        this.name = this.user!.name || 'User';
+        this.email = this.user!.email || '';
+        this.createdAt = this.user!.createdAt || new Date().toISOString();
+        this.generateInitials();
+        this.loadUserStats();
+      }
     }
   }
 
@@ -107,8 +109,10 @@ export class Profile implements OnInit {
   }
 
   logout(): void {
-    localStorage.removeItem('user');
-    this.router.navigate(['/login']);
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      sessionStorage.removeItem('user');
+    }
+    this.router.navigate(['/']);
   }
 }
 

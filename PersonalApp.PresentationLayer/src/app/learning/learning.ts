@@ -50,10 +50,12 @@ export class Learning implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const userJson = localStorage.getItem('user');
-    if (userJson) {
-      const user = JSON.parse(userJson);
-      this.userId = user.userId;
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      const userJson = sessionStorage.getItem('user');
+      if (userJson) {
+        const user = JSON.parse(userJson);
+        this.userId = user.userId;
+      }
     }
     this.loadSubjects();
   }

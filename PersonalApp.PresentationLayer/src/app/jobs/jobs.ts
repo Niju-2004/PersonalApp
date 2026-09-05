@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { JobService } from '../services/job-service';
 import { FormsModule } from '@angular/forms';
-// import { Router } from 'express';
 import { Router } from '@angular/router';
 
 @Component({
@@ -46,49 +45,37 @@ export class Jobs implements OnInit {
               private route: Router) { }
 
   ngOnInit() {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-
-      this.user = JSON.parse(storedUser);
-
-      // Store individual values
-      this.name = this.user!.name;
-      this.userId = this.user!.userId;
-      this.email = this.user!.email;
-      this.createdAt = this.user!.createdAt;
-
-
-      console.log('Logged in user:', this.user);
-      console.log('User ID:', this.userId);
-      console.log('User name:', this.name);
-
-      // Get dashboard counts from backend
-      // this.getDashboardCounts();
-
-    } else {
-
-      console.log('No user found in localStorage');
-
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      const storedUser = sessionStorage.getItem("user");
+      if (storedUser) {
+        this.user = JSON.parse(storedUser);
+        this.name = this.user!.name;
+        this.userId = this.user!.userId;
+        this.email = this.user!.email;
+        this.createdAt = this.user!.createdAt;
+      }
     }
 
     this.loadJobs();
-
   }
+
   loadJobs() {
+    if (!this.userId) return;
     this.ds.getAllJobs(this.userId).subscribe((jobs) => {
-      this.jobs = jobs;
-      console.log("Total jobs", this.jobs);
+      this.jobs = jobs || [];
       this.cdr.detectChanges();
-    })
+    });
   }
 
   openDrawer() {
     this.resetForm();
     this.isDrawerOpen = true;
   }
+
   closeDrawer() {
     this.isDrawerOpen = false;
   }
+
   resetForm() {
     this.newJob = {
       companyName: '',
@@ -115,19 +102,21 @@ export class Jobs implements OnInit {
       this.newJob.interviewDate,
       this.newJob.notes
     ).subscribe((newJobId) => {
-      console.log("Job created with ID:", newJobId);
       this.closeDrawer();
       this.loadJobs();
     });
 
     this.route.navigate(['/layout/jobs']);
   }
+
   openViewJob(job: any) {
     this.selectedJob = job;
     this.isViewModalOpen = true;
   }
+
   closeViewJob() {
     this.selectedJob = null;
     this.isViewModalOpen = false;
   }
 }
+

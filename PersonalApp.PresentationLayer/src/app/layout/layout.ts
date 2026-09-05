@@ -34,18 +34,22 @@ export class Layout implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const userJson = localStorage.getItem('user');
-    if (userJson) {
-      const user = JSON.parse(userJson);
-      this.userId = user.userId;
-      this.isAdminUser = user.email === 'admin';
-      this.loadDailyTasks();
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      const userJson = sessionStorage.getItem('user');
+      if (userJson) {
+        const user = JSON.parse(userJson);
+        this.userId = user.userId;
+        this.isAdminUser = user.email === 'admin';
+        this.loadDailyTasks();
+      }
     }
   }
 
   logout() {
-    localStorage.removeItem("user");
-    this.route.navigate(['/login']);
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      sessionStorage.removeItem("user");
+    }
+    this.route.navigate(['/']);
   }
 
   // ==========================================
