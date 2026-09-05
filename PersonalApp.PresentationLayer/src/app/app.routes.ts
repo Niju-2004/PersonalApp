@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { Landing } from './landing/landing';
 import { Loginpage } from './loginpage/loginpage';
 import { Dashboard } from './dashboard/dashboard';
 import { Layout } from './layout/layout';
@@ -12,7 +13,9 @@ import { Learning } from './learning/learning';
 import { Admin } from './admin/admin';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', component: Landing },
+  { path: 'home', component: Landing },
+  { path: 'landing', component: Landing },
   { path: 'login', component: Loginpage },
   { path: 'userRegistration', component: UserRegistration },
   {
@@ -40,6 +43,6 @@ export const routes: Routes = [
   { path: 'tasks', redirectTo: 'layout/tasks', pathMatch: 'full' },
   
   // Catch-all
-  { path: '**', redirectTo: 'login' }
+  { path: '**', redirectTo: '' }
 ];
 

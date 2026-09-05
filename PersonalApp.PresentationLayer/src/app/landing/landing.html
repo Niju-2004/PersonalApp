@@ -1,0 +1,293 @@
+<div class="landing-wrapper">
+
+  <!-- ==========================================================================
+       1. TOP NAVIGATION BAR
+       ========================================================================== -->
+  <header class="landing-navbar">
+    <div class="nav-container">
+      
+      <!-- Brand Logo -->
+      <div class="brand-logo" routerLink="/">
+        <div class="logo-badge">✨</div>
+        <div class="logo-text">
+          <h2>Personal<span>App</span></h2>
+          <span class="logo-sub">Niju's Life OS</span>
+        </div>
+      </div>
+
+      <!-- Center Date Badge (Desktop) -->
+      <div class="date-pill">
+        <span>📅 {{ todayDate | date:'fullDate' }}</span>
+      </div>
+
+      <!-- Auth Actions -->
+      <div class="nav-actions">
+        <ng-container *ngIf="!isLoggedIn">
+          <a routerLink="/login" class="btn-nav-login">Sign In</a>
+          <a routerLink="/userRegistration" class="btn-nav-register">Get Started Free →</a>
+        </ng-container>
+
+        <ng-container *ngIf="isLoggedIn">
+          <a routerLink="/layout/dashboard" class="btn-nav-dashboard">
+            <span>Go to Dashboard ({{ userName }}) →</span>
+          </a>
+        </ng-container>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ==========================================================================
+       2. HERO SECTION
+       ========================================================================== -->
+  <section class="hero-section">
+    <div class="hero-container">
+      
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        <span>ALL-IN-ONE PERSONAL LIFE OPERATING SYSTEM</span>
+      </div>
+
+      <h1 class="hero-title">
+        Master Your <span class="gradient-text">Career</span>, <span class="gradient-text">Wealth</span>, <br>
+        <span class="gradient-text">Study Habits</span>, & Daily Tasks.
+      </h1>
+
+      <p class="hero-subtitle">
+        Built by <strong>Niju M</strong>. An enterprise-grade, full-stack personal productivity suite designed to manage job application pipelines, track multi-bank savings goals with monthly history, build study consistency on interactive calendars, and tick off daily morning checklists.
+      </p>
+
+      <div class="hero-cta-group">
+        <ng-container *ngIf="!isLoggedIn">
+          <a routerLink="/userRegistration" class="btn-hero-primary">
+            <span>🚀 Create Your Free Account</span>
+          </a>
+          <a routerLink="/login" class="btn-hero-secondary">
+            <span>🔑 Sign In to Dashboard</span>
+          </a>
+        </ng-container>
+
+        <ng-container *ngIf="isLoggedIn">
+          <a routerLink="/layout/dashboard" class="btn-hero-primary">
+            <span>⚡ Open My Dashboard ({{ userName }}) →</span>
+          </a>
+        </ng-container>
+      </div>
+
+      <!-- Quick Metrics Ribbon -->
+      <div class="hero-stats-ribbon">
+        <div class="ribbon-item">
+          <span class="ribbon-icon">💼</span>
+          <div class="ribbon-text">
+            <strong>Career Pipeline</strong>
+            <span>Track Jobs & Offers</span>
+          </div>
+        </div>
+
+        <div class="ribbon-divider"></div>
+
+        <div class="ribbon-item">
+          <span class="ribbon-icon">💰</span>
+          <div class="ribbon-text">
+            <strong>Wealth Buckets</strong>
+            <span>Multi-Bank Goals & History</span>
+          </div>
+        </div>
+
+        <div class="ribbon-divider"></div>
+
+        <div class="ribbon-item">
+          <span class="ribbon-icon">📚</span>
+          <div class="ribbon-text">
+            <strong>Daily Study Calendar</strong>
+            <span>Tick Dates & Streaks</span>
+          </div>
+        </div>
+
+        <div class="ribbon-divider"></div>
+
+        <div class="ribbon-item">
+          <span class="ribbon-icon">✅</span>
+          <div class="ribbon-text">
+            <strong>Floating Checklist</strong>
+            <span>1-Click Morning Tasks</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==========================================================================
+       3. CORE 4 PILLARS & FEATURES SHOWCASE
+       ========================================================================== -->
+  <section class="features-section">
+    <div class="section-container">
+      
+      <div class="section-header">
+        <span class="section-tag">CORE CAPABILITIES</span>
+        <h2>Everything You Need in One Unified Dashboard</h2>
+        <p>Four specialized modules engineered with Red & Violet glassmorphism for seamless personal growth.</p>
+      </div>
+
+      <div class="features-grid">
+        
+        <!-- Pillar 1: Career & Jobs -->
+        <article class="feature-card">
+          <div class="feature-icon-box pink-gradient">💼</div>
+          <span class="feature-num">01 / CAREER</span>
+          <h3>Job Application Pipeline</h3>
+          <p>
+            Track your job search across every lifecycle stage: <strong>Applied</strong>, <strong>Interviewing</strong>, and <strong>Offers</strong>. Record target salaries, company requirements, and interview notes in a slide-over drawer.
+          </p>
+          <ul class="feature-checklist">
+            <li><span>✓</span> Company & salary tracking</li>
+            <li><span>✓</span> Remote, hybrid & on-site badges</li>
+            <li><span>✓</span> Real-time search & status filtering</li>
+          </ul>
+        </article>
+
+        <!-- Pillar 2: Wealth & Savings -->
+        <article class="feature-card">
+          <div class="feature-icon-box violet-gradient">💰</div>
+          <span class="feature-num">02 / WEALTH</span>
+          <h3>Savings & Multi-Bank Buckets</h3>
+          <p>
+            Two-tier wealth manager. Organize savings into visual purpose buckets (<strong>HDFC Emergency Fund</strong>, <strong>SBI Bike Fund</strong>) with target goal progress bars and monthly grouped transaction history.
+          </p>
+          <ul class="feature-checklist">
+            <li><span>✓</span> Bank brand auto-detection & goal progress</li>
+            <li><span>✓</span> Monthly grouped history with sub-totals</li>
+            <li><span>✓</span> Interactive Month-Year dropdown filter</li>
+          </ul>
+        </article>
+
+        <!-- Pillar 3: Daily Learning Calendar -->
+        <article class="feature-card">
+          <div class="feature-icon-box red-gradient">📚</div>
+          <span class="feature-num">03 / HABITS</span>
+          <h3>Daily Learning & Study Calendar</h3>
+          <p>
+            Master skills like <strong>C#</strong>, <strong>Angular</strong>, and <strong>Docker</strong>. Open interactive 7-day monthly calendars, click dates to tick what you studied (e.g. <em>OOPs Polymorphism</em>), and build study streaks.
+          </p>
+          <ul class="feature-checklist">
+            <li><span>✓</span> Interactive 7-day monthly calendar grid</li>
+            <li><span>✓</span> Date-click check-ins with glowing ✅ checkmarks</li>
+            <li><span>✓</span> Consecutive daily study streaks (🔥)</li>
+          </ul>
+        </article>
+
+        <!-- Pillar 4: Floating Daily Checklist -->
+        <article class="feature-card">
+          <div class="feature-icon-box purple-gradient">⚡</div>
+          <span class="feature-num">04 / PRODUCTIVITY</span>
+          <h3>Global Floating Daily Checklist</h3>
+          <p>
+            A persistent floating button in the bottom-right corner accessible from <strong>any page</strong>. Type your daily morning goals, tick them off with animated strikethroughs, and watch your daily progress reach 100%.
+          </p>
+          <ul class="feature-checklist">
+            <li><span>✓</span> Accessible everywhere without losing context</li>
+            <li><span>✓</span> Fast morning quick-add input bar</li>
+            <li><span>✓</span> 1-click ticking with live progress meter</li>
+          </ul>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==========================================================================
+       4. TECH STACK & ENGINEERING ARCHITECTURE
+       ========================================================================== -->
+  <section class="tech-section">
+    <div class="section-container">
+      
+      <div class="section-header">
+        <span class="section-tag">ENGINEERING & ARCHITECTURE</span>
+        <h2>Built with Modern 3-Tier Cloud Technologies</h2>
+        <p>High performance, responsive, secure, and Google-indexed architecture.</p>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card">
+          <span class="tech-badge">Frontend</span>
+          <h4>Angular 19+</h4>
+          <p>TypeScript, Standalone Components, Reactive Signals, and Glassmorphic CSS3.</p>
+        </div>
+
+        <div class="tech-card">
+          <span class="tech-badge">Backend</span>
+          <h4>ASP.NET Core 10</h4>
+          <p>C# RESTful Web API, Entity Framework Core, CORS middleware, and Swagger docs.</p>
+        </div>
+
+        <div class="tech-card">
+          <span class="tech-badge">Database</span>
+          <h4>PostgreSQL (Neon)</h4>
+          <p>Serverless Cloud Database with dual local Microsoft SQL Server support.</p>
+        </div>
+
+        <div class="tech-card">
+          <span class="tech-badge">Deployment</span>
+          <h4>Vercel & Render</h4>
+          <p>Automated CI/CD deployment pipelines with Docker containerization.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==========================================================================
+       5. BOTTOM CALL TO ACTION BANNER
+       ========================================================================== -->
+  <section class="cta-banner-section">
+    <div class="cta-card">
+      <h2>Ready to Organize Your Life & Career?</h2>
+      <p>Join PersonalApp today to track your jobs, grow your savings, and build daily study streaks.</p>
+      <div class="cta-actions">
+        <a routerLink="/userRegistration" class="btn-cta-white">Get Started Free →</a>
+        <a routerLink="/login" class="btn-cta-ghost">Sign In to Dashboard</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================================================
+       6. CREATOR FOOTER
+       ========================================================================== -->
+  <footer class="landing-footer">
+    <div class="footer-container">
+      
+      <div class="footer-left">
+        <div class="footer-logo">
+          <span>✨ PersonalApp</span>
+        </div>
+        <p>Built with ❤️ by <strong>Niju M</strong>. All-in-One Personal Life Operating System.</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://github.com/Niju-2004/PersonalApp" target="_blank" rel="noopener noreferrer">
+          ⭐ GitHub Repository
+        </a>
+        <a href="https://personal-app-tan.vercel.app" target="_blank" rel="noopener noreferrer">
+          🌐 Live Vercel App
+        </a>
+        <a href="https://personalapp-pd9o.onrender.com/swagger/index.html" target="_blank" rel="noopener noreferrer">
+          📖 Swagger API Docs
+        </a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 PersonalApp by Niju M. Open-source under MIT License.</span>
+    </div>
+  </footer>
+
+</div>
+
