@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
+import { ThemeService } from '../services/theme-service';
 
 @Component({
   imports: [CommonModule, RouterLink],
@@ -14,7 +15,10 @@ export class Landing implements OnInit {
   isLoggedIn: boolean = false;
   userName: string = '';
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    public themeService: ThemeService
+  ) { }
 
   ngOnInit(): void {
     if (typeof window !== 'undefined' && window.sessionStorage) {
@@ -31,6 +35,14 @@ export class Landing implements OnInit {
         }
       }
     }
+  }
+
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
+  }
+
+  isDark(): boolean {
+    return this.themeService.isDarkMode();
   }
 
   navigateTo(path: string): void {

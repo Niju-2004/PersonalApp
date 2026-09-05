@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet, Router } from '@angular/rou
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../services/task-service';
+import { ThemeService } from '../services/theme-service';
 import { ITask } from '../interfaces/ITask';
 
 @Component({
@@ -30,6 +31,7 @@ export class Layout implements OnInit {
   constructor(
     private route: Router,
     private taskService: TaskService,
+    public themeService: ThemeService,
     private cdr: ChangeDetectorRef
   ) { }
 
@@ -43,6 +45,14 @@ export class Layout implements OnInit {
         this.loadDailyTasks();
       }
     }
+  }
+
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
+  }
+
+  isDark(): boolean {
+    return this.themeService.isDarkMode();
   }
 
   logout() {

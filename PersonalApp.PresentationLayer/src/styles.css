@@ -1,5 +1,9 @@
 /* Global Styles & Design System */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+
+/* ==========================================================================
+   1. CSS VARIABLES (LIGHT & DARK THEMES)
+   ========================================================================== */
 
 :root {
   --primary-red: #e11d48;
@@ -16,13 +20,41 @@
   --glow-primary: 0 8px 24px rgba(225, 29, 72, 0.22), 0 4px 12px rgba(124, 58, 237, 0.2);
   --glow-subtle: 0 4px 20px rgba(124, 58, 237, 0.12);
   
-  --bg-main: #f9f9fd;
+  /* Light Theme Specifics */
+  --bg-main: #f8fafc;
   --card-bg: #ffffff;
+  --card-bg-alt: #f8fafc;
+  --sidebar-bg: #ffffff;
+  --topbar-bg: rgba(255, 255, 255, 0.92);
+  --modal-bg: #ffffff;
+  --input-bg: #fcfdfe;
   --text-dark: #1e1b4b;
   --text-body: #334155;
   --text-muted: #64748b;
-  --border-light: #f1f1f6;
-  --border-card: #e8e8f2;
+  --border-light: #edf0f7;
+  --border-card: #edf0f7;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+/* ==========================================================================
+   2. DARK THEME OVERRIDES (.dark-theme)
+   ========================================================================== */
+
+html.dark-theme,
+body.dark-theme {
+  --bg-main: #0b0f19;
+  --card-bg: #111827;
+  --card-bg-alt: #161f38;
+  --sidebar-bg: #0f172a;
+  --topbar-bg: rgba(15, 23, 42, 0.94);
+  --modal-bg: #111827;
+  --input-bg: #1e293b;
+  --text-dark: #f8fafc;
+  --text-body: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-light: rgba(124, 58, 237, 0.18);
+  --border-card: rgba(124, 58, 237, 0.2);
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
 * {
@@ -36,6 +68,7 @@ body {
   background-color: var(--bg-main);
   color: var(--text-body);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* Custom modern scrollbar */
@@ -45,15 +78,136 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f6;
+  background: var(--bg-main);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: var(--border-light);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a855f7;
+  background: var(--primary-violet);
+}
+
+/* ==========================================================================
+   3. UNIVERSAL DARK THEME UTILITIES
+   ========================================================================== */
+
+body.dark-theme .app-layout {
+  background: radial-gradient(circle at top right, rgba(225, 29, 72, 0.08), transparent 600px),
+              radial-gradient(circle at 10% 80%, rgba(124, 58, 237, 0.1), transparent 600px),
+              #0b0f19;
+}
+
+body.dark-theme .sidebar,
+body.dark-theme .mobile-topbar,
+body.dark-theme .mobile-bottom-nav {
+  background: var(--sidebar-bg);
+  border-color: var(--border-light);
+}
+
+body.dark-theme .card,
+body.dark-theme .subject-card,
+body.dark-theme .stat-card,
+body.dark-theme .history-card,
+body.dark-theme .job-card,
+body.dark-theme .users-section,
+body.dark-theme .study-history-section,
+body.dark-theme .calendar-container,
+body.dark-theme .floating-checklist-card,
+body.dark-theme .subject-header-info,
+body.dark-theme .calendar-controls-bar {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-card) !important;
+  color: var(--text-body) !important;
+}
+
+body.dark-theme .calendar-day-cell {
+  border-color: var(--border-light) !important;
+}
+
+body.dark-theme .calendar-day-cell:hover {
+  background: #1e1b4b !important;
+}
+
+body.dark-theme .calendar-day-cell .day-number {
+  color: var(--text-dark) !important;
+}
+
+body.dark-theme .calendar-weekdays-row {
+  background: var(--card-bg-alt) !important;
+  border-color: var(--border-light) !important;
+}
+
+body.dark-theme input,
+body.dark-theme textarea,
+body.dark-theme select {
+  background-color: var(--input-bg) !important;
+  border-color: var(--border-light) !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4,
+body.dark-theme strong {
+  color: var(--text-dark) !important;
+}
+
+body.dark-theme .users-table th {
+  background: var(--card-bg-alt) !important;
+  color: var(--text-muted) !important;
+  border-color: var(--border-light) !important;
+}
+
+body.dark-theme .users-table td {
+  border-color: var(--border-light) !important;
+  color: var(--text-body) !important;
+}
+
+body.dark-theme .users-table tbody tr:hover {
+  background: rgba(124, 58, 237, 0.08) !important;
+}
+
+body.dark-theme .checkin-modal,
+body.dark-theme .user-modal,
+body.dark-theme .add-subject-modal,
+body.dark-theme .modal-dialog,
+body.dark-theme .drawer-content {
+  background-color: var(--modal-bg) !important;
+  border-color: var(--border-card) !important;
+}
+
+body.dark-theme .modal-header,
+body.dark-theme .user-modal-header,
+body.dark-theme .user-modal-footer {
+  background-color: var(--card-bg-alt) !important;
+  border-color: var(--border-light) !important;
+}
+
+body.dark-theme .landing-wrapper {
+  background: radial-gradient(circle at 10% 20%, rgba(225, 29, 72, 0.08), transparent 600px),
+              radial-gradient(circle at 90% 40%, rgba(124, 58, 237, 0.12), transparent 700px),
+              #0b0f19 !important;
+  color: #f8fafc !important;
+}
+
+body.dark-theme .landing-navbar {
+  background: rgba(15, 23, 42, 0.88) !important;
+  border-color: rgba(124, 58, 237, 0.2) !important;
+}
+
+body.dark-theme .features-section {
+  background: #0f172a !important;
+  border-color: rgba(124, 58, 237, 0.15) !important;
+}
+
+body.dark-theme .feature-card,
+body.dark-theme .tech-card,
+body.dark-theme .hero-stats-ribbon {
+  background: #111827 !important;
+  border-color: rgba(124, 58, 237, 0.2) !important;
 }
 

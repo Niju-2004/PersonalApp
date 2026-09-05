@@ -20,8 +20,12 @@
         <span>📅 {{ todayDate | date:'fullDate' }}</span>
       </div>
 
-      <!-- Auth Actions -->
+      <!-- Auth Actions & Theme Switcher -->
       <div class="nav-actions">
+        <button class="btn-theme-nav" (click)="toggleTheme()" [title]="isDark() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+          {{ isDark() ? '☀️' : '🌙' }}
+        </button>
+
         <ng-container *ngIf="!isLoggedIn">
           <a routerLink="/login" class="btn-nav-login">Sign In</a>
           <a routerLink="/userRegistration" class="btn-nav-register">Get Started Free →</a>

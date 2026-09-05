@@ -11,6 +11,9 @@
 
     <div class="mobile-top-right">
       <span class="mobile-date-badge">📅 {{ todayDate | date:'d MMM y' }}</span>
+      <button class="mobile-theme-btn" (click)="toggleTheme()" [title]="isDark() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+        {{ isDark() ? '☀️' : '🌙' }}
+      </button>
       <button class="mobile-logout-btn" (click)="logout()" title="Logout">
         🚪
       </button>
@@ -79,6 +82,12 @@
     </nav>
 
     <div class="sidebar-bottom">
+
+      <!-- THEME SWITCHER TOGGLE -->
+      <button class="theme-toggle-btn" (click)="toggleTheme()" [title]="isDark() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+        <span class="theme-icon">{{ isDark() ? '☀️' : '🌙' }}</span>
+        <span class="theme-text">{{ isDark() ? 'Light Mode' : 'Dark Mode' }}</span>
+      </button>
 
       <a routerLink="/layout/profile"
          routerLinkActive="active"
