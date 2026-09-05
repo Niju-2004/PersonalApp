@@ -5,11 +5,12 @@
   min-height: 100vh;
   background: radial-gradient(circle at top right, rgba(225, 29, 72, 0.08), transparent 40%),
               radial-gradient(circle at bottom left, rgba(124, 58, 237, 0.08), transparent 40%),
-              #f8f8fc;
+              var(--bg-main);
   padding: 2rem 1.5rem;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
+  transition: background-color 0.25s ease;
 }
 
 .register-wrapper {
@@ -18,6 +19,28 @@
   max-width: 480px;
   display: flex;
   justify-content: center;
+}
+
+/* Floating Theme Switcher */
+.auth-theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-dark);
+  box-shadow: var(--card-shadow);
+  z-index: 100;
+  transition: all 0.2s ease;
+}
+
+.auth-theme-toggle:hover {
+  transform: scale(1.1);
+  border-color: var(--primary-violet);
 }
 
 /* Ambient Glowing Background Orbs */
@@ -48,16 +71,15 @@
 .register-container {
   position: relative;
   z-index: 1;
-  background: rgba(255, 255, 255, 0.96);
+  background: var(--card-bg);
   backdrop-filter: blur(12px);
   width: 100%;
   padding: 2.75rem 2.25rem;
   border-radius: 22px;
-  border: 1px solid rgba(225, 29, 72, 0.12);
-  box-shadow: 0 20px 40px -12px rgba(124, 58, 237, 0.12),
-              0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-card);
+  box-shadow: var(--card-shadow);
   box-sizing: border-box;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.25s ease;
 }
 
 .register-container:hover {
@@ -77,11 +99,11 @@
   gap: 6px;
   padding: 5px 12px;
   border-radius: 20px;
-  background: linear-gradient(135deg, rgba(225, 29, 72, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
-  border: 1px solid rgba(225, 29, 72, 0.15);
+  background: var(--gradient-badge);
+  border: 1px solid rgba(225, 29, 72, 0.2);
   font-size: 0.78rem;
   font-weight: 700;
-  color: #be123c;
+  color: var(--primary-red);
   text-transform: uppercase;
   letter-spacing: 0.8px;
   margin-bottom: 0.85rem;
@@ -107,13 +129,13 @@
 .welcome-heading {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1e1b4b;
+  color: var(--text-dark);
   margin: 0.25rem 0 0.2rem 0;
 }
 
 .welcome-subtext {
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -131,15 +153,15 @@
 }
 
 .alert-error {
-  background: #ffe4e6;
-  border: 1px solid #fecdd3;
-  color: #be123c;
+  background: rgba(225, 29, 72, 0.12);
+  border: 1px solid rgba(225, 29, 72, 0.25);
+  color: #f43f5e;
 }
 
 .alert-success {
-  background: #ecfdf5;
-  border: 1px solid #a7f3d0;
-  color: #047857;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #10b981;
 }
 
 /* Form Styles */
@@ -158,7 +180,7 @@
 .input-group label {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #334155;
+  color: var(--text-body);
 }
 
 .input-field-wrapper {
@@ -178,21 +200,24 @@
 .input-field-wrapper input {
   width: 100%;
   padding: 0.75rem 2.8rem 0.75rem 2.6rem;
-  background: #fdfdfd;
-  border: 1.5px solid #e2e8f0;
+  background: var(--input-bg);
+  border: 1.5px solid var(--input-border);
   border-radius: 10px;
   font-size: 0.95rem;
-  color: #1e293b;
+  color: var(--input-text);
   font-family: inherit;
   outline: none;
   transition: all 0.25s ease;
   box-sizing: border-box;
 }
 
+.input-field-wrapper input::placeholder {
+  color: var(--input-placeholder);
+}
+
 .input-field-wrapper input:focus {
   border-color: #7c3aed;
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12),
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15),
               0 0 0 1px rgba(225, 29, 72, 0.2);
 }
 
@@ -208,7 +233,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.65;
+  opacity: 0.75;
   transition: opacity 0.2s ease, transform 0.15s ease;
 }
 
@@ -265,8 +290,8 @@
   margin-top: 1.75rem;
   text-align: center;
   font-size: 0.875rem;
-  color: #64748b;
-  border-top: 1px solid #f1f5f9;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-light);
   padding-top: 1.25rem;
 }
 

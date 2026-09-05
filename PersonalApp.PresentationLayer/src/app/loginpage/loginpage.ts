@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IUser } from '../interfaces/IUser';
+import { ThemeService } from '../services/theme-service';
 
 @Component({
   imports: [FormsModule, RouterLink, CommonModule],
@@ -20,9 +21,21 @@ export class Loginpage implements OnInit {
   isLoading: boolean = false;
   showPassword: boolean = false;
 
-  constructor(private userService: UserService, private route: Router) { }
+  constructor(
+    private userService: UserService,
+    private route: Router,
+    public themeService: ThemeService
+  ) { }
 
   ngOnInit() { }
+
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
+  }
+
+  isDark(): boolean {
+    return this.themeService.isDarkMode();
+  }
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;

@@ -1,4 +1,9 @@
 <div class="login-wrapper">
+  <!-- Theme Toggle in top-right -->
+  <button class="auth-theme-toggle" (click)="toggleTheme()" [title]="isDark() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+    {{ isDark() ? '☀️' : '🌙' }}
+  </button>
+
   <!-- Catchy glowing ambient orbs -->
   <div class="ambient-glow glow-1"></div>
   <div class="ambient-glow glow-2"></div>

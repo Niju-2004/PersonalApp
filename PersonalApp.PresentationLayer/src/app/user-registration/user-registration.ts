@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../services/user-service';
+import { ThemeService } from '../services/theme-service';
 
 @Component({
   imports: [FormsModule, RouterLink, CommonModule],
@@ -25,8 +26,17 @@ export class UserRegistration {
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    public themeService: ThemeService
   ) { }
+
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
+  }
+
+  isDark(): boolean {
+    return this.themeService.isDarkMode();
+  }
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;

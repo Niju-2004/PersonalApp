@@ -27,7 +27,10 @@
   --sidebar-bg: #ffffff;
   --topbar-bg: rgba(255, 255, 255, 0.92);
   --modal-bg: #ffffff;
-  --input-bg: #fcfdfe;
+  --input-bg: #fdfdfd;
+  --input-text: #1e293b;
+  --input-border: #e2e8f0;
+  --input-placeholder: #94a3b8;
   --text-dark: #1e1b4b;
   --text-body: #334155;
   --text-muted: #64748b;
@@ -49,6 +52,9 @@ body.dark-theme {
   --topbar-bg: rgba(15, 23, 42, 0.94);
   --modal-bg: #111827;
   --input-bg: #1e293b;
+  --input-text: #f8fafc;
+  --input-border: rgba(124, 58, 237, 0.25);
+  --input-placeholder: #64748b;
   --text-dark: #f8fafc;
   --text-body: #cbd5e1;
   --text-muted: #94a3b8;
@@ -110,8 +116,12 @@ body.dark-theme .mobile-bottom-nav {
 body.dark-theme .card,
 body.dark-theme .subject-card,
 body.dark-theme .stat-card,
+body.dark-theme .action-card,
+body.dark-theme .bucket-card,
+body.dark-theme .profile-card,
 body.dark-theme .history-card,
 body.dark-theme .job-card,
+body.dark-theme .metric-card,
 body.dark-theme .users-section,
 body.dark-theme .study-history-section,
 body.dark-theme .calendar-container,
@@ -138,22 +148,6 @@ body.dark-theme .calendar-day-cell .day-number {
 body.dark-theme .calendar-weekdays-row {
   background: var(--card-bg-alt) !important;
   border-color: var(--border-light) !important;
-}
-
-body.dark-theme input,
-body.dark-theme textarea,
-body.dark-theme select {
-  background-color: var(--input-bg) !important;
-  border-color: var(--border-light) !important;
-  color: #f8fafc !important;
-}
-
-body.dark-theme h1,
-body.dark-theme h2,
-body.dark-theme h3,
-body.dark-theme h4,
-body.dark-theme strong {
-  color: var(--text-dark) !important;
 }
 
 body.dark-theme .users-table th {
